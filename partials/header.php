@@ -9,10 +9,12 @@
             </ul>
         </div>
         <div style="width:100px;">
-            <button class="Btn">
-                <div class="sign"><i class="fa-solid fa-right-to-bracket"></i></div>
-                <div class="text">Login</div>
-            </button>
+            <a href="./login.php">
+                <button class="Btn">
+                    <div class="sign"><i class="fa-solid fa-right-to-bracket"></i></div>
+                    <div class="text">Login</div>
+                </button>
+            </a>
         </div>
        
     </header>
