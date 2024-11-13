@@ -4,8 +4,8 @@
         header("Location: ./Instructors/dashboard.php");
         exit;
     }
-    require './database/config.php';
-    require './partials/head.php';
+    require 'config/config.php';
+    require 'partials/head.php';
 ?>
 
 <body>
@@ -34,5 +34,5 @@
 </div>
 
 <?php
-    require './partials/footer.php';
+    require 'partials/footer.php';
 ?>

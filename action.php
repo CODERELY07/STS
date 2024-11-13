@@ -1,5 +1,5 @@
 <?php
-    require_once './database/config.php';
+    require_once './config/config.php';
     session_start();
     $response = ['success' => false, 'error' => []];
 
