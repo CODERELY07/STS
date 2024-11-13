@@ -19,10 +19,13 @@
         <h2 class="text-center">Enroll Now for an Exciting Academic Journey!</h2>
         <p class="text-center">Don’t miss your chance to join XSchool! Enrollment is open until January 15, 2024, with exams scheduled for February 10, 2024. Secure your spot today and embark on a path to academic success!</p>
         <div class="text-center">
-            <button class="button">
-                Enroll Now
-                <i class="fas fa-arrow-right"></i>
-            </button>
+            <a href="/register">
+                <button class="button">
+                    Enroll Now
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </a>
+          
         </div>
     </div>
     <div class="line"></div>
