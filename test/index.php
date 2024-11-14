@@ -1,3 +1,33 @@
+<?php
+
+
+   require_once(__DIR__ . '/../paths.php');
+   require_once APP_PATH . 'app.php';
+   require_once CONFIG_PATH . 'config.php';
+//    session_start();
+
+   // Check if student ID exists in session
+   if (!isset($_SESSION['studentID'])) {
+       die('Student ID not found in session.');
+   }
+
+   $id = $_SESSION['studentID'];
+
+   // Prepare and execute the query to fetch student data
+   $sql = "SELECT * FROM students WHERE id = :id";
+   $stmt = $pdo->prepare($sql);
+   $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+   $stmt->execute();
+
+   // Fetch the student data (single row)
+   $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+   // Check if student data is found
+   if (!$row) {
+       die('Student not found.');
+   }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,8 +56,8 @@
 
         <div class="row mb-4 mt-5 px-4">
             <div class="col-7">
-                <p><span>Name:</span> <b> Mark Ely L. Calipjo</b></p>
-                <p><span class="me-3">Age:<b>20</b></span> <span>Birthdate: <b>2004-20-09</b></span></p>
+                <p><span>Name:</span> <b> <?= $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']?></b></p>
+                <p><span class="me-3">Age:<b><?php getAge($row['dateofbirth'])?></b></span> <span>Birthdate: <b></b></span></p>
                 <p><span>Address:</span> La Purisma Nabua Camarines Sur</p>
             </div>
             <div class="col-5">

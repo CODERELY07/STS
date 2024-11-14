@@ -7,7 +7,7 @@ $(function(){
         let passwordError = $("#password_error");
         $.ajax({
             type: "POST",
-            url: "action.php",
+            url: "loads/login_action.php",
             data: dataForm,
           
         }).then(function(res){
@@ -15,7 +15,7 @@ $(function(){
             // console.log(res);
             if(result.success){
                 localStorage.setItem('token', result.token);
-                location.href = "./Instructors/dashboard.php";
+                location.href = "Instructors/dashboard.php";
             }else{
                 if(result.error.username){
                     console.log(result.error.username)
@@ -186,8 +186,7 @@ function validateStep(step) {
 
         if (validateStep(currentStep)) {
             let formData = $(this).serialize();
-            
-    
+        
             $.ajax({
                 type:"POST",
                 url: '../loads/action.php',

@@ -1,6 +1,9 @@
 <?php
-    require_once './config/config.php';
+
+    require '../preventer.php';
+    require_once '../config/config.php';
     session_start();
+
     $response = ['success' => false, 'error' => []];
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){

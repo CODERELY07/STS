@@ -7,7 +7,7 @@ $(document).ready(function(){
           
             $.ajax({
                 type:"GET",
-                url: './../loads/load_programs.php',
+                url: '../loads/load_programs.php',
                 data: {deparmentName: deparmentName},
                 success:function(data){
                    $('#program').html(data);
