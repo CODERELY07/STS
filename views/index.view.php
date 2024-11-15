@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="line"></div>
-    <!-- <div class="container-fluid my-5">
+    <div class="container-fluid my-5">
         <h3 class="text-center my-4 pb-5">View Courses!</h3>
         <div class="d-flex">
             <div class="box">
@@ -81,7 +81,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 <?php
     require 'partials/footer.php';
 
