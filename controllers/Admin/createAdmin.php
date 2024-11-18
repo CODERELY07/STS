@@ -1,5 +1,7 @@
 <?php
-    require './../database/config.php';
+    
+    require_once(__DIR__ . '/../../paths.php');
+    require CONFIG_PATH . 'config.php';
 
     function createAdmin($username, $password){
         global $pdo;

@@ -82,6 +82,8 @@
             </div>
         </div>
     </div>
+
+    <a href="/adminLogin">Admin</a>
 <?php
     require 'partials/footer.php';
 

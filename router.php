@@ -9,6 +9,14 @@ $routes = [
     '/register' => 'controllers/register.php',
     '/registered' => 'controllers/registered.php',
     '/pdf' => 'views/partials/pdf.php',
+    '/student' => 'controllers/Admin/adminviewstudent.php',
+    '/instructor' => 'controllers/Admin/adminviewinstructor.php',
+    '/fetch-student' => 'controllers/Admin/loads/fetch.php',
+    '/editStatus' => 'controllers/Admin/loads//editStatus.php',
+    '/add-student' => 'controllers/Admin/loads/add.php',
+    '/adminLogin' => 'controllers/Admin/adminLogin.php',
+    '/admin-login-action' => 'controllers/Admin/loads/admin-login-action.php',
+    '/admindashboard' => 'controllers/Admin/admindashboard.php',
 ];
 
 function routeToController($uri, $routes){

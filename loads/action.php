@@ -3,9 +3,9 @@
     require '../preventer.php';
     require './../config/config.php';
     session_start();
-    $getLastRowID = "SELECT * FROM students WHERE id=(SELECT max(id) FROM students)";
-    $result = $pdo->query($getLastRowID);
-    $row = $result->fetch(PDO::FETCH_ASSOC);
+    // $getLastRowID = "SELECT * FROM students WHERE id=(SELECT max(id) FROM students)";
+    // $result = $pdo->query($getLastRowID);
+    // $row = $result->fetch(PDO::FETCH_ASSOC);
     // Collect form data
     $firstname = trim($_POST['firstname']);
     $middlename = trim($_POST['middlename']);
@@ -22,15 +22,15 @@
     $program = trim($_POST['program']); 
     $status = "registered";
 
-    if ($row) {
-        $studID = date("Y") . str_pad(($row['id'] + 1), 3, '0', STR_PAD_LEFT); 
-    } else {
-        $studID = date("Y") . "001";  
-    }
+    // if ($row) {
+    //     $studID = date("Y") . str_pad(($row['id'] + 1), 3, '0', STR_PAD_LEFT); 
+    // } else {
+    //     $studID = date("Y") . "001";  
+    // }
 
     try {
-        $sql = "INSERT INTO students (firstname, middlename, lastname, gender, dateofbirth, email, address, phone, status, formerschoolname, formerschooladdress, graduationyear, department, program, studID) 
-                VALUES (:firstname, :middlename, :lastname, :gender, :dateofbirth, :email, :address, :phonenumber, :status, :formerschoolname, :formerschooladdress, :graduationyear, :department, :program, :studID)";
+        $sql = "INSERT INTO students (firstname, middlename, lastname, gender, dateofbirth, email, address, phone, status, formerschoolname, formerschooladdress, graduationyear, department, program) 
+                VALUES (:firstname, :middlename, :lastname, :gender, :dateofbirth, :email, :address, :phonenumber, :status, :formerschoolname, :formerschooladdress, :graduationyear, :department, :program)";
         
 
         $stmt = $pdo->prepare($sql);
@@ -51,7 +51,6 @@
             ':graduationyear' => $graduationyear,
             ':department' => $department,
             ':program' => $program,
-            ':studID' => $studID,
         ]);
         
         if ($exe) {

@@ -1,11 +1,12 @@
 <?php
-session_start();
-// if(isset($_SESSION['token'])){
-//     header("Location: ./../Instructors/dashboard.php");
-//     exit;
-// }
-require './../database/config.php';
-require './../partials/head.php';
+
+    session_start();
+    // if(isset($_SESSION['token'])){
+    //     header("Location: ./../Instructors/dashboard.php");
+    //     exit;
+    // }
+    require 'config/config.php';
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +14,7 @@ require './../partials/head.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Information Management System - Login</title>
-    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/admin-login.css">
 </head>
 <body>
     <div class="container">
@@ -71,27 +72,26 @@ require './../partials/head.php';
             // Handle Admin Login Form Submission
             $('#admin-login').on('submit', function(e){
 
-                e.preventDefault(); // Prevent default form submission
-                let formData = $(this).serialize(); // Serialize form data
+                e.preventDefault(); 
+                let formData = $(this).serialize(); 
                 
                 $.ajax({
                     type: "POST",
-                    url: 'action.php',
-                    data: { userType: 'admin', formData: formData }, // Send user type and form data
+                    url: '/admin-login-action',
+                    data: { userType: 'admin', formData: formData }, 
                     success: function(response) {
-                        // Check the response to see if it's a valid JSON
-                        console.log(response.isSuccess);  // Log the full response
+                        console.log(response.isSuccess); 
 
-                        // Check if response has 'success' key
+                      
                         if (response && response.isSuccess !== undefined) {
                             if (response.isSuccess) {
-                                // Handle successful login (e.g., redirect or display success message)
+                               
                                 console.log(response.message);
-                                window.location.href = 'admindashboard.php'; // Redirect after successful login
+                                window.location.href = '/admindashboard';
                             } else {
                                 // Handle failed login (e.g., display error message)
                                 console.error(response.message);
-                                alert(response.message); // Display error message from the PHP response
+                                alert(response.message); 
                             }
                         } else {
                             console.error("Unexpected response format:", response);
@@ -99,7 +99,7 @@ require './../partials/head.php';
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error("AJAX Error:", status, error); // Handle any errors from the AJAX request
+                        console.error("AJAX Error:", status, error); 
                     }
                 });
 
@@ -107,18 +107,18 @@ require './../partials/head.php';
 
             // Handle Instructor Login Form Submission
             $('#instructor-login').on('submit', function(e){
-                e.preventDefault(); // Prevent default form submission
-                let formData = $(this).serialize(); // Serialize form data
+                e.preventDefault(); 
+                let formData = $(this).serialize(); 
                 $.ajax({
                     type: "POST",
-                    url: 'action.php',
-                    data: { userType: 'instructor', formData: formData }, // Send user type and form data
+                    url: '/admin-login-action',
+                    data: { userType: 'instructor', formData: formData },
                     success: function(response) {
                         console.log(response); 
-                        window.location.href = 'admindashboard.php';
+                        window.location.href = '/admindashboard';
                     },
                     error: function(xhr, status, error) {
-                        console.error("AJAX Error:", status, error); // Handle errors if any
+                        console.error("AJAX Error:", status, error);
                     }
                 });
             });
