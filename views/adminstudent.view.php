@@ -49,7 +49,7 @@
                         <h5>All Students</h5>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-md-6 d-flex">
+                        <div class="col-12 col-md-12 d-flex">
                             <div class="card flex-fill border-0">
                                 <div class="card-body p-0 d-flex flex-fill">
                                     <div class="row g-0 w-100">
@@ -97,7 +97,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6 d-flex">
+                        <div class="col-12 col-md-12 d-flex">
                             <div class="card flex-fill border-0">
                                 <div class="card-body p-0 d-flex flex-fill">
                                     <div class="row g-0 w-100">
@@ -129,7 +129,12 @@
                                                                 <td><?= $row['email']?></td>
                                                                 <td><?= $row['address']?></td>
                                                                 <td><?= $row['status']?></td>
-                                                                <td><button class="btn"><a href="#">Send Message</a></button></td>
+                                                                <td>
+                                                                    <form action="/send_email" method="POST">
+                                                                        <input type="hidden" name="id" id="id" value="<?= $row['id']?>">
+                                                                        <button type="submit" class="btn">Send Message</button>
+                                                                    </form>
+                                                                </td>
                                                             </tr>
                                                         <?php endforeach;?>
                                                     </tbody>
@@ -152,34 +157,34 @@
                                 All the students that's enrolled
                             </h6>
                         </div>
-                        <div class="card-body">
-                            <table class="table">
+                        <div class="table-responsive">
+                            <table class="table table-fixed">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
+                                <?php
+                                    $sql_register = "SELECT * FROM students WHERE status = 'enrolled' ORDER BY id DESC";
+                                    $stmt = $pdo->query($sql_register);
+                                    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                ?>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td colspan="2">Larry the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
+                                    <?php foreach($rows as $row):?>
+                                        <tr>
+                                            <td scope="row"><?= $row['firstname']. ' ' . $row['middlename'] . ' ' . $row['lastname']?></td>
+                                            <td><?= $row['email']?></td>
+                                            <td><?= $row['address']?></td>
+                                            <td><?= $row['status']?></td>
+                                            <td>
+                                               Edit Details
+                                            </td>
+                                        </tr>
+                                    <?php endforeach;?>
                                 </tbody>
                             </table>
                         </div>

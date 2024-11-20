@@ -17,6 +17,8 @@ $routes = [
     '/adminLogin' => 'controllers/Admin/adminLogin.php',
     '/admin-login-action' => 'controllers/Admin/loads/admin-login-action.php',
     '/admindashboard' => 'controllers/Admin/admindashboard.php',
+    '/createAccount' => 'controllers/createAccount.php',
+    '/send_email' => 'controllers/Admin/loads/send_email.php',
 ];
 
 function routeToController($uri, $routes){
