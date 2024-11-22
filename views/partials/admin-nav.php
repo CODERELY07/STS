@@ -6,12 +6,10 @@
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
                 <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                    <img src="./../src/images/profile.jpg" class="avatar img-fluid rounded" alt="">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzewQ_JGAS5FVP6PWfoTSzZ9TnNJWuMJFfLg&s" class="avatar img-fluid rounded" alt="">
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a href="#" class="dropdown-item">Profile</a>
-                    <a href="#" class="dropdown-item">Setting</a>
-                    <a href="#" class="dropdown-item">Logout</a>
+                    <a href="/adminLogout" class="dropdown-item">Logout</a>
                 </div>
             </li>
         </ul>

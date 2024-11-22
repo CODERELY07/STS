@@ -15,6 +15,8 @@ $routes = [
     '/delete_enrolled' => 'controllers/Admin/loads/delete_enrolled.php',
     '/add-student' => 'controllers/Admin/loads/add.php',
     '/adminLogin' => 'controllers/Admin/adminLogin.php',
+    '/adminLogout' => 'controllers/Admin/adminLogout.php',
+    '/createAdmin' => 'controllers/Admin/createAdmin.php',
     '/admin-login-action' => 'controllers/Admin/loads/admin-login-action.php',
     '/admindashboard' => 'controllers/Admin/admindashboard.php',
     '/createAccount' => 'controllers/createAccount.php',
@@ -23,6 +25,7 @@ $routes = [
     '/add-instructor' => 'controllers/Admin/loads/add.php',
     '/edit-instructor' => 'controllers/Admin/loads/edit.php',
     '/delete-instructor' => 'controllers/Admin/loads/delete.php',
+    '/home' => 'controllers/index.php',
 ];
 
 function routeToController($uri, $routes){

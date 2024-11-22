@@ -99,14 +99,14 @@ header.header {
   padding: 15px;
 }
 .card-text::-webkit-scrollbar {
-  width: 8px; /* Width of the scrollbar */
+  width: 8px; 
 }
 .card-text::-webkit-scrollbar-thumb {
-  background: #333; /* Color of the scrollbar thumb */
-  border-radius: 10px; /* Rounded edges for the thumb */
+  background: #333; 
+  border-radius: 10px;
 }
 .card-text::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Color of the scrollbar track */
+  background: #f1f1f1; 
   border-radius: 10px;
 }
 .profile-container {

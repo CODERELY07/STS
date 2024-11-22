@@ -1,7 +1,4 @@
 <?php
-
-    
-    
-    require 'functions.php';
-    require 'router.php';
+    require_once 'functions.php';
+    require_once 'router.php';
 ?>

@@ -1,6 +1,10 @@
 <aside id="sidebar" class="js-sidebar">
             <!-- Content For Sidebar -->
-            <div class="h-100">
+            <div class="h-100 mt-5 pt-4">
+            <a href="#" class="theme-toggle">
+            <i class="fa-regular fa-moon"></i>
+            <i class="fa-regular fa-sun"></i>
+        </a>
                 <div class="sidebar-logo">
                     <a href="#">STS</a>
                 </div>

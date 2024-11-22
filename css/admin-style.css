@@ -60,11 +60,12 @@ h4 {
 
 .sidebar-logo {
     padding: 1.15rem;
+    padding-bottom: 0;
 }
 
 .sidebar-logo a {
     color: #e9ecef;
-    font-size: 1.15rem;
+    font-size: 2.5rem;
     font-weight: 600;
 }
 
@@ -134,23 +135,17 @@ a.sidebar-link {
     margin-bottom: 24px;
 }
 
-.illustration {
-    background-color: var(--bs-primary-bg-subtle);
-    color: var(--bs-emphasis-color);
-}
-
-.illustration-img {
-    max-width: 150px;
-    width: 100%;
-}
-
 /* Sidebar Toggle */
 
 #sidebar.collapsed {
-    margin-left: -264px;
+    margin-left: 0px;
 }
 
 /* Footer and Nav */
+.js-sidebar {
+    margin-left: -264px;
+    position: relative;
+}
 
 @media (max-width:767.98px) {
 
@@ -170,31 +165,69 @@ a.sidebar-link {
 
 /* Theme Toggler */
 
+/* Theme Toggler (Sun and Moon Icons) */
 .theme-toggle {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-65%);
+    position: absolute;
+    top: 5%;
+    transform: translateY(-50%);
     text-align: center;
     z-index: 10;
-    right: 0;
+    right: auto;
     left: auto;
+    right:40%;
     border: none;
     background-color: var(--bs-body-color);
+    border-radius: 50%; /* Make the button circular */
+    padding: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
 }
 
-html[data-bs-theme="dark"] .theme-toggle .fa-sun,
+.theme-toggle:hover {
+    transform: translateY(-50%) scale(1.1); /* Slight zoom effect on hover */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* More prominent shadow on hover */
+}
+
+/* Sun and Moon Icons Styling */
+html[data-bs-theme="light"] .theme-toggle .fa-sun,
+html[data-bs-theme="dark"] .theme-toggle .fa-moon {
+    cursor: pointer;
+    padding: 15px; /* Increase padding for a better clickable area */
+    font-size: 1.5rem; /* Slightly larger font size for better visibility */
+    display: block;
+    color: #FFF;
+    transition: all 0.3s ease-in-out; /* Smooth transition for all properties */
+    border-radius: 50%; /* Round the icon's background */
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Hide the fa-sun icon in dark mode */
+html[data-bs-theme="dark"] .theme-toggle .fa-sun {
+    display: none;
+}
+
+/* Hide the fa-moon icon in light mode */
 html[data-bs-theme="light"] .theme-toggle .fa-moon {
+    display: none;
+}
+
+/* Style for the theme toggle icons */
+html[data-bs-theme="light"] .theme-toggle .fa-sun,
+html[data-bs-theme="dark"] .theme-toggle .fa-moon {
     cursor: pointer;
     padding: 10px;
     display: block;
     font-size: 1.25rem;
-    color: #FFF;
+    color: #000; /* Black icon for light mode */
 }
 
+/* When dark mode is active, the moon icon will be white */
 html[data-bs-theme="dark"] .theme-toggle .fa-moon {
-    display: none;
+    color: #FFF; /* White moon icon in dark mode */
 }
 
+/* When light mode is active, the sun icon will be white */
 html[data-bs-theme="light"] .theme-toggle .fa-sun {
-    display: none;
+    color: #FFF; /* White sun icon in light mode */
 }

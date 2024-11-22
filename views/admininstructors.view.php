@@ -34,7 +34,7 @@
                             <label for="phone">Phone: </label>
                             <input type="text" name="phone" id="phone" class="form-control">
                             <button type="submit" name="btn_add"
-                            class="btn btn-xs btn-success float-end mt-3">Add</button>
+                            class="btn btn-primary float-end mt-3">Add</button>
                         </form>
                     </div>
                     <div class="modal-footer">

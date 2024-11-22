@@ -2,7 +2,7 @@
     
     require 'config/config.php';
     header('Content-Type: application/json');
-
+    session_start();
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['userType']) && isset($_POST['formData'])) {
             parse_str($_POST['formData'], $formData); 
@@ -19,6 +19,8 @@
                 if($stmt->rowCount() > 0){
                     $user = $stmt->fetch(PDO::FETCH_ASSOC);
                     if(password_verify($password, $user['password'])){
+                        $_SESSION['userType'] = 'admin';   
+                        $_SESSION['username'] = $username;
                         echo json_encode(['isSuccess' => true, 'message' => "Admin Login Successful"]);
                     }else{
                         echo json_encode(['isSuccess' => false, 'message' =>  "Invalid Password"]);
@@ -29,6 +31,9 @@
                 
             } elseif ($_POST['userType'] == 'instructor') {
                 // Instructor login handling logic
+                $_SESSION['userType'] = 'instructor';   
+                $_SESSION['instructorId'] = $instructorId; 
+
                 $instructorId = $formData['instructor-id'];
                 $instructorPassword = $formData['instructor-password'];
                 echo json_encode(['isSuccess' => true, 'message' =>  "Instructor login attempt with ID: $instructorId"]);
