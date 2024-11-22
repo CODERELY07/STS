@@ -1,20 +1,19 @@
 <?php
 
-require_once(__DIR__ . '/../../paths.php');
-require CONFIG_PATH . 'config.php';
-   
+    require_once(__DIR__ . '/../../../paths.php');
+    require CONFIG_PATH . 'config.php'; 
     if(isset($_POST['id'])){
         $id = trim($_POST['id']);
-        $username = trim($_POST['text']);
+        $text = trim($_POST['text']);
         $columnname = trim($_POST['columnname']);
 
-        $allowed = ['username'];
+        $allowed = ['FirstName', 'LastName', 'MiddleName', 'Email', 'Phone'];
         if(in_array($columnname, $allowed)){
             try{
-                $sql = "UPDATE users SET $columnname = :username WHERE id = :id";
+                $sql = "UPDATE instructors SET $columnname = :text WHERE InstructorID = :id";
                 $stmt = $pdo->prepare($sql);
     
-                if($stmt->execute([':username' => $username, ':id' => $id])){
+                if($stmt->execute([':text' => $text, ':id' => $id])){
                     echo "Edit Successfully";
                 }else{
                     echo "Can't Edit something's wrong!";

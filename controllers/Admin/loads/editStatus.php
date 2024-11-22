@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['editStudentId'])) {
     $sql = "UPDATE students SET status = :status WHERE id = :id";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':status' => $status, ':id' => $studentId]);
-
     // Optionally, redirect back to the page to clear the query parameter
     header("Location: /student");
     exit();

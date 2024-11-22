@@ -11,14 +11,18 @@ $routes = [
     '/pdf' => 'views/partials/pdf.php',
     '/student' => 'controllers/Admin/adminviewstudent.php',
     '/instructor' => 'controllers/Admin/adminviewinstructor.php',
-    '/fetch-student' => 'controllers/Admin/loads/fetch.php',
-    '/editStatus' => 'controllers/Admin/loads//editStatus.php',
+    '/editStatus' => 'controllers/Admin/loads/editStatus.php',
+    '/delete_enrolled' => 'controllers/Admin/loads/delete_enrolled.php',
     '/add-student' => 'controllers/Admin/loads/add.php',
     '/adminLogin' => 'controllers/Admin/adminLogin.php',
     '/admin-login-action' => 'controllers/Admin/loads/admin-login-action.php',
     '/admindashboard' => 'controllers/Admin/admindashboard.php',
     '/createAccount' => 'controllers/createAccount.php',
     '/send_email' => 'controllers/Admin/loads/send_email.php',
+    '/fetch-instructors' => 'controllers/Admin/loads/fetch.php',
+    '/add-instructor' => 'controllers/Admin/loads/add.php',
+    '/edit-instructor' => 'controllers/Admin/loads/edit.php',
+    '/delete-instructor' => 'controllers/Admin/loads/delete.php',
 ];
 
 function routeToController($uri, $routes){

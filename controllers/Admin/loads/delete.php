@@ -1,12 +1,12 @@
 <?php
 
-    require_once(__DIR__ . '/../../paths.php');
-    require CONFIG_PATH . 'config.php';
+    require_once(__DIR__ . '/../../../paths.php');
+    require CONFIG_PATH . 'config.php'; 
     
     if(isset($_POST['id'])){
         $id = trim($_POST['id']);
         try{
-            $sql = "DELETE FROM users WHERE id = :id";
+            $sql = "DELETE FROM instructors WHERE InstructorID = :id";
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             if($stmt->execute()){

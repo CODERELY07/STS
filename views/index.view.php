@@ -83,7 +83,7 @@
         </div>
     </div>
 
-    <a href="/adminLogin">Admin</a>
+    <a href="/adminLogin">Employee</a>
 <?php
     require 'partials/footer.php';
 

@@ -10,6 +10,7 @@
             <?php 
                 require_once 'partials/admin-nav.php';
             ?>
+   
          <!-- Edit Status Modal -->
         <div class="modal fade" id="editStatus" tabindex="-1" role="dialog" aria-labelledby="editStatusLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -28,6 +29,7 @@
                                     <option value=""></option>
                                     <option value="pass">Pass</option>
                                     <option value="fail">Fail</option>
+                                    <option value="registered">Registered</option>
                                 </select>
                             </div>
                             <!-- Hidden input to store the student ID -->
@@ -79,9 +81,7 @@
                                                                 <td scope="row"><?= $row['firstname']. ' ' . $row['middlename'] . ' ' . $row['lastname']?></td>
                                                                 <td><?= $row['email']?></td>
                                                                 <td><?= $row['address']?></td>
-                                                              <!-- Table Row with "Edit Status" Button -->
                                                             <td>
-                                                                <!-- Add a data-id attribute to store the student ID -->
                                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editStatus" data-id="<?= $row['id']; ?>">
                                                                     Edit Status
                                                                 </button>
@@ -114,7 +114,7 @@
                                                             <th scope="col">Email</th>
                                                             <th scope="col">Address</th>
                                                             <th scope="col">Status</th>
-                                                            <th scope="col">Action</th>
+                                                            <th scope="col" class="text-center" colspan="3">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <?php
@@ -135,6 +135,16 @@
                                                                         <button type="submit" class="btn">Send Message</button>
                                                                     </form>
                                                                 </td>
+                                                                <td>
+                                                                <button type="button" class="btn btn-primary delete" data-id="<?= $row['id']; ?>">
+                                                                    Delete
+                                                                </button>
+                                                                </td>
+                                                                <td>
+                                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editStatus" data-id="<?= $row['id']; ?>">
+                                                                    Edit Status
+                                                                </button>
+                                                            </td>
                                                             </tr>
                                                         <?php endforeach;?>
                                                     </tbody>
@@ -181,7 +191,10 @@
                                             <td><?= $row['address']?></td>
                                             <td><?= $row['status']?></td>
                                             <td>
-                                               Edit Details
+                                               <button type="button" class="btn btn-primary delete" data-id="<?= $row['id']; ?>">
+                                                Delete
+                                                </button>
+
                                             </td>
                                         </tr>
                                     <?php endforeach;?>
@@ -192,23 +205,35 @@
                 </div>
             </main>
             <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <!-- Bootstrap JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
         <script>
             $(document).ready(function() {
-                // When the Edit Status button is clicked, open the modal
+
                 $('#editStatus').on('show.bs.modal', function(event) {
-                    // Get the button that triggered the modal
                     var button = $(event.relatedTarget);
-                    // Get the student ID from the data-id attribute
                     var studentId = button.data('id');
-                    
-                    // Set the student ID in the hidden input field of the modal
+
                     var modal = $(this);
                     modal.find('#editStudentId').val(studentId);
                 });
+               
+                $('.delete').on('click', function(e){
+                    var id = $(this).data('id');
+                    if(confirm("Are you sure you want to delete this? ")){
+                    $.ajax({
+                        type: "POST",
+                        url: "/delete_enrolled",
+                        data: {id: id},
+                        success: function(data){
+                            alert(data);
+                            location.reload();
+                        }
+                    })
+                 }
+                })
             });
 
 
