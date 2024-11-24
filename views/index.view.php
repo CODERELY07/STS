@@ -8,13 +8,60 @@
             <?php
                 require 'partials/header.php';
             ?>
-            <div class="center">
-                <h1 class="display-4">Welcome to Student Management and Learning System!</h1>
-                <p class="lead">XSchool is designed to enhance the educational experience for both students and educators. Our comprehensive management system streamlines administrative tasks. Join us on the journey to academic success!</p>
-            </div>
-           
-        </div>
+                            <div style="position:absolute;left:0;z-index:100;top:50%;width: 300px; height: 10px;">
+                            </div>
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <p style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);z-index:10">STUDENT MANAGEMENT SYSTEM</p>
+
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <!-- Corrected the extra carousel-inner -->
+                     
+                    <div class="carousel-item active" style="background-color: rgba(52, 58, 64, 0.3); height: 100vh;">
+                        <div class="carousel-caption d-flex justify-content-center align-items-center d-md-block w-100" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            <div class="d-flex flex-column h-100 justify-content-center align-items-center">
+                                
+                                <h5 style="color: white;">First slide label</h5>
+                                <p style="color: white;">Some representative placeholder content for the first slide.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" style="background-color: rgba(52, 58, 64, 0.3); height: 100vh;">
+                        <div class="carousel-caption d-flex justify-content-center align-items-center d-md-block w-100" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            <div class="d-flex flex-column h-100 justify-content-center align-items-center">
+                                <h5 style="color: white;">Second slide label</h5>
+                                <p style="color: white;">Some representative placeholder content for the second slide.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" style="background-color: rgba(52, 58, 64, 0.3); height: 100vh;">
+                        <div class="carousel-caption d-flex justify-content-center align-items-center d-md-block w-100" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            <div class="d-flex flex-column h-100 justify-content-center align-items-center">
+                                <h5 style="color: white;">Third slide label</h5>
+                                <p style="color: white;">Some representative placeholder content for the third slide.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <a href="/login">
+                <button class="Btn">
+                    <div class="sign"><i class="fa-solid fa-right-to-bracket"></i></div>
+                    <div class="text">Login</div>
+                </button>
+            </a>
     </div>
+
+        </div>
+     
+
+    </div>
+    
     <div class="container my-5">
         <h2 class="text-center">Enroll Now for an Exciting Academic Journey!</h2>
         <p class="text-center">Don’t miss your chance to join XSchool! Enrollment is open until January 15, 2024, with exams scheduled for February 10, 2024. Secure your spot today and embark on a path to academic success!</p>
@@ -28,6 +75,7 @@
           
         </div>
     </div>
+    
     <div class="line"></div>
     <div class="container-fluid my-5">
         <h3 class="text-center my-4 pb-5">View Courses!</h3>

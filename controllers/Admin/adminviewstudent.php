@@ -4,4 +4,5 @@
         header("Location: /adminLogin");
         exit(); 
     }
+    $role = 'admin';
     require_once './views/adminstudent.view.php';

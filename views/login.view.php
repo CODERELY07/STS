@@ -1,9 +1,5 @@
 <?php
-    session_start();
-    if(isset($_SESSION['token'])){
-        header("Location: ./Instructors/dashboard.php");
-        exit;
-    }
+
     require 'config/config.php';
     require 'partials/head.php';
 ?>
@@ -27,7 +23,7 @@
                     <p class="error-message" id="password_error"></p>
                     <button type="submit" class="btn btn-primary w-100">Login</button>
                 </form>
-                <p class="text-center mt-2"><a href="#">Forgot your password?</a></p>
+                <p class="p-2 text-center text-secondary">Back to home page <a href="/home">here</a>.</p>
             </div>
         </div>
     </div>

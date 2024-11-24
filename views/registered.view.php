@@ -1,7 +1,7 @@
 <?php
     
     define("CONTROLLERS_PATH" , __DIR__ . '/../../controllers/index.php');
-    session_start();
+
     if(!isset($_SESSION['registerd']) && $_SESSION['registered'] == FALSE){
         header("Location: " . CONTROLLERS_PATH);
     }

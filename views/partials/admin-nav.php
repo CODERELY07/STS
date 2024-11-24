@@ -8,9 +8,16 @@
                 <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzewQ_JGAS5FVP6PWfoTSzZ9TnNJWuMJFfLg&s" class="avatar img-fluid rounded" alt="">
                 </a>
+                <?php if ($role == 'admin'): ?>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a href="/adminLogout" class="dropdown-item">Logout</a>
                 </div>
+                <?php elseif ($role == 'student'): ?>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <a href="/editProfile" class="dropdown-item">Edit Profile</a>
+                    <a href="/logout" class="dropdown-item">Logout</a>
+                </div>
+                <?php endif; ?>
             </li>
         </ul>
     </div>

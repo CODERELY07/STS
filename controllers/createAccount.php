@@ -16,15 +16,17 @@ function createAccount($id, $token, $username, $password, $type) {
     $status = "enrolled"; 
 
     try {
-   
+        // Set role based on user type
         if ($type == 'student') {
             $stmt = $pdo->prepare("SELECT email FROM students WHERE id = :id AND token = :token");
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->bindParam(':token', $token);
+            $role = 'student';  // Set role for student
         } else {
             $stmt = $pdo->prepare("SELECT email FROM instructors WHERE InstructorID = :id AND token = :token");
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->bindParam(':token', $token);
+            $role = 'instructor';  // Set role for instructor
         }
         $stmt->execute();
 
@@ -34,23 +36,28 @@ function createAccount($id, $token, $username, $password, $type) {
         }
 
         // Insert new user into 'users' table
-        $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
+        $stmt = $pdo->prepare("INSERT INTO users (username, password, role) VALUES (:username, :password, :role)");
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':password', $hashed_password);
+        $stmt->bindParam(':role', $role);
         $stmt->execute();
 
         $userID = $pdo->lastInsertId();
 
-     
+        // Update students or instructors table with userID
         if ($type == 'student') {
+            // Only update userID and remove token for students
             $stmt = $pdo->prepare("UPDATE students SET userID = :userID, status = :status, token = NULL WHERE id = :id");
-            $stmt->bindParam(':status', $status, PDO::PARAM_STR);  // Only apply status for students
+            $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+            $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         } else {
+            // Only update userID and remove token for instructors
             $stmt = $pdo->prepare("UPDATE instructors SET userID = :userID, token = NULL WHERE InstructorID = :id");
+            $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         }
 
-        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
 
         echo "Account successfully created!";
@@ -58,6 +65,8 @@ function createAccount($id, $token, $username, $password, $type) {
         echo "Database error: " . $e->getMessage();
     }
 }
+
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'], $_GET['token'])) {
     $id = $_GET['id'];

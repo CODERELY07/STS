@@ -21,6 +21,7 @@
                     if(password_verify($password, $user['password'])){
                         $_SESSION['userType'] = 'admin';   
                         $_SESSION['username'] = $username;
+                        $_SESSION['adminIsLoggin'] = true; 
                         echo json_encode(['isSuccess' => true, 'message' => "Admin Login Successful"]);
                     }else{
                         echo json_encode(['isSuccess' => false, 'message' =>  "Invalid Password"]);

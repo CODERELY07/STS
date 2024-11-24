@@ -118,6 +118,26 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-12 col-md-6 d-flex mt-3">
+                                    <div class="card flex-fill border-0">
+                                        <div class="card-body p-0 d-flex flex-fill">
+                                            <div class="row g-0 w-100">
+                                                <div class="col-12 p-2">
+                                                    <div class=" m-1">
+                                                    <h4>Registered</h4>
+                                                        <p class="mb-0 display-3">
+                                                      <?php
+                                                        $sql = "SELECT * FROM students WHERE status = 'registered'";
+                                                        $stmt = $pdo->query($sql);
+                                                        echo $stmt->rowCount();
+                                                        ?>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>

@@ -9,30 +9,32 @@ $(function(){
             type: "POST",
             url: "loads/login_action.php",
             data: dataForm,
-          
         }).then(function(res){
-            let result = JSON.parse(res);
-            // console.log(res);
+            let result = res;
             if(result.success){
                 localStorage.setItem('token', result.token);
-                location.href = "Instructors/dashboard.php";
+                location.href = '/studentdashboard';
             }else{
                 if(result.error.username){
-                    console.log(result.error.username)
+                    console.log(result.error.username);
                     usernameError.text(result.error.username);
-                }else{
+                } else {
                     usernameError.text("");
                 }
-    
+        
                 if(result.error.password){
                     passwordError.text(result.error.password);
-                }else{
+                } else {
                     passwordError.text("");
-                }    
+                }
             }
-        }).fail(function(){
+        }).fail(function(xhr, status, error){
+            console.log("Error: " + error);  // Log the specific error
+            console.log("Status: " + status); // Log the status
+            console.log("Response Text: " + xhr.responseText);  // Log the response text
             passwordError.text("Sign In Error");
-        })
+        });
+        
     })
 });
 

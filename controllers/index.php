@@ -4,4 +4,8 @@
         header("Location: /admindashboard");
         exit(); 
     }
+    if(isset($_SESSION['user_id'])){
+        header("Location: /studentdashboard");
+        exit();
+    }
     require_once './views/index.view.php';
