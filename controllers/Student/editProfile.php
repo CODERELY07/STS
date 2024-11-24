@@ -13,4 +13,12 @@
     $stmt->bindParam(':userID',$userID, PDO::PARAM_INT);
     $stmt->execute();
     $student = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $sql_users = "SELECT * FROM users WHERE userID = :userID";
+    $users_stmt = $pdo->prepare($sql_users);
+    $users_stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $users_stmt->execute();
+    $user = $users_stmt->fetch(PDO::FETCH_ASSOC);
+
+    
     require_once './views/editProfile.view.php';

@@ -68,45 +68,49 @@
                 </form>
 
                 <!-- Former School Information Section -->
-                <form action="#" method="POST" class="pt-5" enctype="multipart/form-data">
+                <form action="/editStudPersonalInfo" method="POST" class="pt-5" enctype="multipart/form-data">
                     <div class="form-section-title mt-5">Edit Your Former School Information</div>
 
                     <div class="mb-3">
-                        <label for="schoolName" class="form-label">Former School Name:</label>
-                        <input type="text" class="form-control" id="schoolName" name="schoolName" value="XYZ School" required>
+                        <label for="formerschoolname" class="form-label">Former School Name:</label>
+                        <input type="text" class="form-control" id="formerschoolname" name="formerschoolname" value="<?= $student['formerschoolname']?>" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="schoolAddress" class="form-label">Former School Address:</label>
-                        <input type="text" class="form-control" id="schoolAddress" name="schoolAddress" value="456 School St, City" required>
+                        <label for="formerschooladdress" class="form-label">Former School Address:</label>
+                        <input type="text" class="form-control" id="formerschooladdress" name="formerschooladdress" value="<?= $student['formerschooladdress']?>" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="graduationYear" class="form-label">Graduation Year:</label>
-                        <input type="number" class="form-control" id="graduationYear" name="graduationYear" value="2020" required>
+                        <input type="date" class="form-control" id="graduationYear" name="graduationYear" value="<?= $student['graduationyear']?>" required>
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-success">Save Changes</button>
+                        <button type="submit" class="btn btn-primary float-end">Save Changes</button>
                     </div>
                 </form>
 
                 <!-- Account Information Section -->
-                <form action="#" method="POST" enctype="multipart/form-data">
+                <form action="/editStudPersonalInfo"  method="POST" class="pt-4" enctype="multipart/form-data">
                     <div class="form-section-title mt-5">Edit Your Account</div>
 
                     <div class="mb-3">
                         <label for="username" class="form-label">Username:</label>
-                        <input type="text" class="form-control" id="username" name="username" value="john_doe" required>
+                        <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']?>" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="password" class="form-label">Password:</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Old Password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="New Password" required>
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-success">Save Changes</button>
+                        <button type="submit" class="btn btn-primary float-end">Save Changes</button>
                     </div>
                 </form>
             </div>
