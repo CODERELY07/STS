@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2024 at 01:39 PM
+-- Generation Time: Nov 25, 2024 at 11:27 PM
 -- Server version: 8.0.35
 -- PHP Version: 8.0.8
 
@@ -64,6 +64,23 @@ CREATE TABLE `department` (
 
 INSERT INTO `department` (`DepartmentID`, `DepartmentName`, `Dean`) VALUES
 (1, 'CCS', 'Dr. Alice Johnson');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `instructors`
+--
+
+CREATE TABLE `instructors` (
+  `InstructorID` int NOT NULL,
+  `UserID` int DEFAULT NULL,
+  `FirstName` varchar(100) DEFAULT NULL,
+  `MiddleName` varchar(100) DEFAULT NULL,
+  `LastName` varchar(100) DEFAULT NULL,
+  `Email` varchar(255) DEFAULT NULL,
+  `Phone` varchar(20) DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -139,18 +156,17 @@ CREATE TABLE `students` (
   `graduationyear` date NOT NULL,
   `department` varchar(100) NOT NULL,
   `program` varchar(100) NOT NULL,
-  `studID` int NOT NULL
+  `studID` int DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL,
+  `userID` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `firstname`, `middlename`, `lastname`, `gender`, `dateofbirth`, `email`, `address`, `phone`, `yearlevel`, `section`, `status`, `formerschoolname`, `formerschooladdress`, `graduationyear`, `department`, `program`, `studID`) VALUES
-(30, 'Mark Ely', 'Lomeda', 'Calipjo', 'male', '2024-11-20', 'jusptin.perez@gmail.com', 'La Pursima, Nabua, Camarines Sur', '09302727548', NULL, NULL, 'registered', 'ACLC', 'IRIGA', '2024-11-20', 'CCS', 'BSIT', 2024001),
-(31, 'Mark', 'Lomeda', 'Calipjo', 'male', '2024-11-20', 'jusptin.perez@gmail.com', 'La Pursima, Nabua, Camarines Sur', '6019521325', NULL, NULL, 'registered', 'ACLC', 'IRIGA', '2024-11-20', 'CCS', 'BSIT', 2024031),
-(32, 'Mark', 'Lomeda', 'Calipjo', 'male', '2024-11-20', 'jusptin.perez@gmail.com', 'La Pursima, Nabua, Camarines Sur', '6019521325', NULL, NULL, 'registered', 'ACLC', 'IRIGA', '2024-11-20', 'CCS', 'BSIT', 2024032),
-(33, 'Mark Ely', 'Lomeda', 'Calipjo', 'male', '2024-11-21', 'jusptin.perez@gmail.com', 'La Pursima, Nabua, Camarines Sur', '09302727548', NULL, NULL, 'registered', 'ACLC', 'IRIGA', '2024-11-19', 'CCS', 'BSIT', 2024033);
+INSERT INTO `students` (`id`, `firstname`, `middlename`, `lastname`, `gender`, `dateofbirth`, `email`, `address`, `phone`, `yearlevel`, `section`, `status`, `formerschoolname`, `formerschooladdress`, `graduationyear`, `department`, `program`, `studID`, `token`, `userID`) VALUES
+(68, 'Mark Elyss', 'Lomedass', 'Calipjoss', 'male', '2024-11-14', 'calipjo.markely@gmail.com', 'La Pursima, Nabua, Camarines Surss', '09302727548445', NULL, NULL, 'enrolled', 'ACLCasss', 'IRIGAsss', '2024-11-20', 'CCS', 'BSIT', NULL, NULL, 72);
 
 -- --------------------------------------------------------
 
@@ -161,15 +177,18 @@ INSERT INTO `students` (`id`, `firstname`, `middlename`, `lastname`, `gender`, `
 CREATE TABLE `users` (
   `userID` int NOT NULL,
   `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `role` enum('student','instructor','admin') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userID`, `username`, `password`) VALUES
-(2, 'admin', '$2y$10$3mvkEnyyYTZ5ytxDAZMgHOa.0Rb1dgZFqSg6EdokCJeenqprgTfKS');
+INSERT INTO `users` (`userID`, `username`, `password`, `role`) VALUES
+(53, 'admin', '$2y$10$F8jzOIeiUjup8xJXh9hrp.nQt7Ak96lYMsrbUX0AQZ12gMVz8BbAC', NULL),
+(71, 'Instructor', '$2y$10$lz/tj7emt27LQM2cGG.vFOP.SJFzPUayHmUKkeVRLL5.rB5EE2ZDi', 'instructor'),
+(72, 'coderely', '$2y$10$0SST9AHjDqlkNwVMqyYWrexf6X1YU8jg4kBylveuhSW5jCBPTDd9a', 'student');
 
 --
 -- Indexes for dumped tables
@@ -189,6 +208,13 @@ ALTER TABLE `department`
   ADD PRIMARY KEY (`DepartmentID`);
 
 --
+-- Indexes for table `instructors`
+--
+ALTER TABLE `instructors`
+  ADD PRIMARY KEY (`InstructorID`),
+  ADD KEY `UserID` (`UserID`);
+
+--
 -- Indexes for table `program`
 --
 ALTER TABLE `program`
@@ -205,7 +231,8 @@ ALTER TABLE `studentinformation`
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user` (`userID`);
 
 --
 -- Indexes for table `users`
@@ -228,13 +255,13 @@ ALTER TABLE `studentinformation`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `userID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- Constraints for dumped tables
@@ -247,10 +274,22 @@ ALTER TABLE `courses`
   ADD CONSTRAINT `courses_ibfk_1` FOREIGN KEY (`ProgramID`) REFERENCES `program` (`ProgramID`);
 
 --
+-- Constraints for table `instructors`
+--
+ALTER TABLE `instructors`
+  ADD CONSTRAINT `instructors_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`userID`) ON DELETE SET NULL;
+
+--
 -- Constraints for table `program`
 --
 ALTER TABLE `program`
   ADD CONSTRAINT `program_ibfk_1` FOREIGN KEY (`DepartmentID`) REFERENCES `department` (`DepartmentID`);
+
+--
+-- Constraints for table `students`
+--
+ALTER TABLE `students`
+  ADD CONSTRAINT `fk_user` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
