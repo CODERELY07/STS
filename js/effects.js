@@ -1,11 +1,10 @@
 // header scroll effect
 document.addEventListener('DOMContentLoaded', function() {
-    window.addEventListener('scroll', function() {
-        const header = document.getElementById('header');
-        if (window.scrollY > 0) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
+    const navbar = document.querySelector('.navbar');
+    const navbarToggler = document.getElementById('navbar-toggler');
+
+    navbarToggler.addEventListener('click', function() {
+        navbar.classList.toggle('black-bg');
     });
+
 });

@@ -1,47 +1,29 @@
 <div>
-<header class=" navbar fixed-top navbar-expand-lg d-flex justify-content-between align-items-center py-3 px-4 header " id="header">
-        <!-- <div class="logo">STS</div>
-        <div class="menu">
-            <ul class="d-flex list-unstyled">
-                <li><a href="/">Home</a></li>
-                <li><a href="#">View Courses</a></li>
-                <li><a href="#">Feedback</a></li>
-            </ul>
+    <nav class="navbar fixed-top navbar-expand-lg d-flex justify-content-between align-items-center py-3 px-4 header" id="header">
+        <div class="container-fluid position-relative">
+            <a class="navbar-brand white" href="#">SMS</a>
+            <button id="navbar-togglers" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-center fixed-top">
+                <img alt="Logo" class="img-fluid" height="50" src="../src/images/logo.png" width="100" />
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link white" href="#">INQUIRE</a>
+                    </li>
+                    <li class="line l1"></li>
+                    <li class="nav-item">
+                        <a class="nav-link white" href="#">APPLY</a>
+                    </li>
+                    <li class="line l2"></li>
+                    <li class="nav-item">
+                        <a class="nav-link white" href="#">COURSES</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div style="width:100px;">
-            <a href="/login">
-                <button class="Btn">
-                    <div class="sign"><i class="fa-solid fa-right-to-bracket"></i></div>
-                    <div class="text">Login</div>
-                </button>
-            </a>
-        </div> -->
-                <div>
-                    <a class="logo white text-decoration-none" href="#">SMS</a>
-                </div>
-            
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="top-absolute align-items-center pe-auto" style="position: absolute; left: 50%; transform: translateX(-50%);">
-                    Logo
-                </div>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    </ul>
-                    
-                    <div class="menu">
-                        <ul class="d-flex list-unstyled">
-                            <li><a href="/">INQUIRE</a></li>
-                            <li class="line"></li>
-                            <li><a href="#">APPLY</a></li>
-                            <li class="line"></li>
-                            <li><a href="#">COURSES</a></li>
-                        </ul>
-                    </div>
-                 
-                </div>
-            
-    </header>
-
+    </nav>
 </div>
+
