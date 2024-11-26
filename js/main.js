@@ -60,35 +60,35 @@ $(document).ready(function(){
 
     // Validate individual input fields
         // Validate individual input fields
-function validateInputs(input, callback){
-    let isValid = true;
+    function validateInputs(input, callback){
+        let isValid = true;
 
-    // For text, email, number, and date inputs, check if empty
-    if(!['data-text'] && input.val() === '') {
-        callback(input, 'Please input your ' + input.attr('id'));
-        isValid = false;
-    }
-    else if(input.val() === "" ) {
-        callback(input, 'Please input your ' + input.attr('id'));
-        isValid = false;
-    } 
-    // Ensure text fields have at least 6 characters
-    else if (input.attr('type') === 'text' && input.val().length < 6 && !['data-text'] ) {
-        callback(input, input.attr('id') + " must be at least 6 characters");
-        isValid = false;
-    }
-    // Use the native validation for email, number, and date types
-    else if (!input[0].checkValidity()) {
-        callback(input, input[0].validationMessage);
-        isValid = false;
-    } else {
-        // If valid, remove error styling and clear error message
-        input.removeClass('is-invalid').addClass('is-valid');
-        input.siblings('.invalid-feedback').text('');
-    }
+        // For text, email, number, and date inputs, check if empty
+        if(!['data-text'] && input.val() === '') {
+            callback(input, 'Please input your ' + input.attr('id'));
+            isValid = false;
+        }
+        else if(input.val() === "" ) {
+            callback(input, 'Please input your ' + input.attr('id'));
+            isValid = false;
+        } 
+        // Ensure text fields have at least 6 characters
+        else if (input.attr('type') === 'text' && input.val().length < 6 && !['data-text'] ) {
+            callback(input, input.attr('id') + " must be at least 6 characters");
+            isValid = false;
+        }
+        // Use the native validation for email, number, and date types
+        else if (!input[0].checkValidity()) {
+            callback(input, input[0].validationMessage);
+            isValid = false;
+        } else {
+            // If valid, remove error styling and clear error message
+            input.removeClass('is-invalid').addClass('is-valid');
+            input.siblings('.invalid-feedback').text('');
+        }
 
-    return isValid;
-}
+        return isValid;
+    }
 
 // Validate step inputs (includes select validation)
 function validateStep(step) {
