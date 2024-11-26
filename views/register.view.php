@@ -5,41 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap Multi-Step Form</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        .step {
-            display: none;
-        }
-        .step-active {
-            display: block;
-        }
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/style.css?<?php echo time()?>">
+    <link rel="stylesheet" href="../css/register.css?<?php echo time()?>">
+   
   </head>
   <body>
+  <?php   require 'partials/register-header.php';?>
     <div class="container mt-5">
-        <h2 class="text-center">Multi-Step Form</h2>
         <form id="multi-step-form">
             <div id="step-1" class="step step-active">
-                <h3>Personal Information</h3>
+                <p class="color-main">Personal Information</p>
                 <div class="form-group">
-                    <label for="firstname">First Name: </label>
+                    <label class="color-main" for="firstname">First Name: </label>
                     <input type="text" class="form-control"name="firstname" id="firstname" required>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group">
-                    <label for="middlename">Middle Name: </label>
+                    <label class="color-main" for="middlename">Middle Name: </label>
                     <input type="text" class="form-control"  data-text  name="middlename" id="middlename" required>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group">
-                    <label for="lastname">Last Name: </label>
+                    <label class="color-main" for="lastname">Last Name: </label>
                     <input type="text"  data-text  class="form-control" name="lastname" id="lastname" required>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group">
-                    <label for="gender">Gender: </label>
+                    <label class="color-main" for="gender">Gender: </label>
                     <select name="gender" id="gender" class="form-control">
                         <option value=""></option>
                         <option value="male">Male</option>
@@ -49,49 +41,48 @@
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group">
-                    <label for="dateofbirth">Date Of Birth: </label>
+                    <label class="color-main" for="dateofbirth">Date Of Birth: </label>
                     <input type="date" class="form-control" name="dateofbirth" id="dateofbirth" required>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email: </label>
+                    <label class="color-main" for="email">Email: </label>
                     <input type="email" class="form-control" name="email" id="email" required>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group">
-                    <label for="phonenumber">Phone Number: </label>
+                    <label class="color-main" for="phonenumber">Phone Number: </label>
                     <input type="number" class="form-control" name="phonenumber" id="phonenumber" required>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group">
-                    <label for="address">Complete Address (City, Province, Barangay): </label>
+                    <label class="color-main" for="address">Complete Address (City, Province, Barangay): </label>
                     <input type="text" class="form-control" name="address" id="address" required>
                     <div class="invalid-feedback"></div>
                 </div>
-                <button class="btn btn-primary next-btn">Next</button>
+                <button class="btn btn-primary float-end next-btn">Next</button>
             </div>
 
             <div id="step-2" class="step">
-                <h3>Student Information</h3>
-                <h4>Former School Details</h4>
+                <p class="color-main">Past Institution Details</p>
                 <div class="form-group">
-                    <label for="formerSchoolName">Former School Name</label>
+                    <label class="color-main" for="formerSchoolName">Past Institution: </label>
                     <input type="text" class="form-control" name="formerSchoolName" id="formerSchoolName" required>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group">
-                    <label for="formerSchoolAddress">Former School Address</label>
+                    <label class="color-main" for="formerSchoolAddress">Past Institution Address: </label>
                     <input type="text" class="form-control" name="formerSchoolAddress" id="formerSchoolAddress" required>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group">
-                    <label for="formerSchoolYear">Former School Graduation</label>
+                    <label class="color-main" for="formerSchoolYear">School Year: </label>
                     <input type="date" class="form-control" name="formerSchoolYear" id="formerSchoolYear" required>
                     <div class="invalid-feedback"></div>
                 </div>
-                <h4>Select Your Department you want to Enroll</h4>
+                <h6 class="color-main">Select Department to Enroll</h6>
                 <div class="form-group">
-                    <label for="department">Department</label>
+                    <label class="color-main" for="department">Department:</label>
                     <select name="department" id="department" class="form-control" required>
                         <option value=""></option>
                         <?php
@@ -103,27 +94,32 @@
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group">
-                    <label for="program">Program</label>
+                    <label class="color-main" for="program">Program:</label>
                     <select name="program" id="program" class="form-control" required>
                     </select>
                     <div class="invalid-feedback"></div>
                 </div>
-                <button class="btn btn-secondary prev-btn">Prev</button>
-                <button class="btn btn-primary next-btn">Next</button>
+                <div>
+                <button class="btn btn-secondary prev-btn">Go Back</button>
+                <button class="btn btn-primary next-btn float-end">Next</button>
+                </div>
+            
             </div>
 
             <div id="step-3" class="step">
-                <h3>Check Your Information</h3>
-                <div class="form-group">
-
-                </div>
+                <p class="color-main">Check Your Information</p>
+                <div class="form-group"></div>
+                <div>
                 <button class="btn btn-secondary prev-btn">Prev</button>
-                <input type="submit" class="btn btn-success" value="Submit">
+                <input type="submit" id="form" class="btn btn-primary next-btn float-end" value="Submit">
+                </div>
+                
             </div>
         </form>
     </div>
 
 <?php
+    require 'partials/register-footer.php';
     require 'partials/footer.php';
 ?>
 

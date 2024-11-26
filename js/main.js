@@ -39,14 +39,7 @@ $(function(){
 });
 
 // Toggle Navigation
-const navbar = document.querySelector('.navbar');
-const navbarToggler = document.getElementById('navbar-togglers');
 
-navbarToggler.addEventListener('click', function() {
-    navbar.classList.toggle('black-bg');
-    document.querySelector('.l1').classList.toggle('none');
-    document.querySelector('.l2').classList.toggle('none');
-});
 // Registration JS
 $(document).ready(function(){
     // Track current step
@@ -169,22 +162,98 @@ function validateStep(step) {
 
         // Display data in Step 3
         const step3Content = `
-            <h4>Your Information:</h4>
-            <p><strong>First Name:</strong> ${firstname}</p>
-            <p><strong>Middle Name:</strong> ${middlename}</p>
-            <p><strong>Last Name:</strong> ${lastname}</p>
-            <p><strong>Gender:</strong> ${gender}</p>
-            <p><strong>Date of Birth:</strong> ${dateofbirth}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Phone Number:</strong> ${phonenumber}</p>
-            <p><strong>Address:</strong> ${address}</p>
-            <h4>Former School Information:</h4>
-            <p><strong>Former School Name:</strong> ${formerSchoolName}</p>
-            <p><strong>Former School Address:</strong> ${formerSchoolAddress}</p>
-            <p><strong>Graduation Year:</strong> ${formerSchoolYear}</p>
-            <h4>Department and Program:</h4>
-            <p><strong>Department:</strong> ${department}</p>
-            <p><strong>Program:</strong> ${program}</p>
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="color-main" for="firstName">
+                            First Name:
+                        </label>
+                        <input class="form-control" id="firstName" value="${firstname}" type="text" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="color-main" for="MiddleName">
+                            Middle Name:
+                        </label>
+                        <input class="form-control" id="MiddleName" value="${middlename}" type="text" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="color-main" for="lastName">
+                            Last Name:
+                        </label>
+                        <input class="form-control" id="lastName" value="${lastname}" type="text" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="color-main" for="gender">
+                            Gender:
+                        </label>
+                        <input class="form-control" id="gender" value="${gender}" type="text" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="color-main" for="birthdate">
+                            Birthdate:
+                        </label>
+                        <input class="form-control" id="birthdate" value="${dateofbirth}" type="text" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="color-main" for="email">
+                            Email:
+                        </label>
+                        <input class="form-control" id="email" value="${email}" type="email" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="color-main" for="phone">
+                            Phone No:
+                        </label>
+                        <input class="form-control" id="phone" value="${phonenumber}" type="text" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="color-main" for="address">
+                            Address:
+                        </label>
+                        <input class="form-control" id="address" value="${address}" type="text" disabled />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="color-main" for="pastInstitution">
+                            Past Institution:
+                        </label>
+                        <input class="form-control" id="pastInstitution" value="${formerSchoolName}" type="text" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="color-main" for="pastInstitutionAddress">
+                            Past Institution Address:
+                        </label>
+                        <input class="form-control" id="pastInstitutionAddress" value="${formerSchoolAddress}" type="text" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="color-main" for="schoolYear">
+                            School Year:
+                        </label>
+                        <input class="form-control" id="schoolYear" value="${formerSchoolYear}" type="text" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="color-main">
+                            Select Department to Enroll
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="color-main" for="department">
+                            Department:
+                        </label>
+                        <input class="form-control" id="department" value="${department}" type="text" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="color-main" for="program">
+                            Program:
+                        </label>
+                        <input class="form-control" id="program" value="${program}" type="text" disabled />
+                    </div>
+                </div>
+            </div>
+        </form>
+
         `;
 
         // Insert the collected data into Step 3
@@ -192,12 +261,10 @@ function validateStep(step) {
     }
 
     // Form submission handler
-    $('#multi-step-form').on('submit', function(e) {
+    $("#form").on('click', function(e){
         e.preventDefault();
-
         if (validateStep(currentStep)) {
-            let formData = $(this).serialize();
-        
+            let formData = $("#multi-step-form").serialize();
             $.ajax({
                 type:"POST",
                 url: '../loads/action.php',

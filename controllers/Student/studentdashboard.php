@@ -14,4 +14,6 @@
     }
    
     $role = 'student';
+
+    // $sql = "SELECT * FROM courses WHERE  "
     require_once './views/studentdashboard.view.php';

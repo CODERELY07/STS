@@ -1,6 +1,11 @@
 <?php
     require '../config/config.php';
     require '../views/partials/head.php';
+
+    $sql = "SELECT * FROM courses WHERE popular = 1";
+    $stmt = $pdo->query($sql);
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <body>
     <div class="banner align-items-center justify-content-center text-center text-white py-5">
@@ -46,7 +51,7 @@
      
 
     </div>
-    <section class="info-section">
+    <!-- <section class="info-section">
         <div class="container">
             <p>Designed to enhance the educational experience for both students and educators.<br>It’s a comprehensive management system that streamlines administrative tasks. Join us on the journey of the academic success!</p>
             <div class="row">
@@ -150,9 +155,136 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <a href="/adminLogin">Employee</a>
+    <div class="h-line"></div>
+    <div class="container">
+        <div class="heads d-flex align-items-center justify-content-center gap-3">
+            <img alt="Logo"  style="width:100px"  src="../src/images/logoshadow.png"/>
+            <h5>
+                POPULAR COURSES
+            </h5>
+        </div>
+        <div class="row mt-4">
+            <?php foreach($rows as $row): ?>
+                <div class="col-md-4 mb-4">
+                    <div class="course-card">
+                        <div class="overlay-hover">
+                            <p class="text-center">
+                                <?= $row["CourseDescription"] ?>
+                            </p>
+                        </div>
+                        <img width="100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg5HJ_Bbmk5B2a4gCG8KAZHiCHzzPkGwrRuA&s"/>
+                        <div class="course-title-overlay">
+                            <?=  htmlspecialchars($row['CourseName']) ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+    </div>
+    <div class="h-line"></div>
+    <div class="container my-5">
+   <div class="heads">
+   <div class="heads d-flex align-items-center justify-content-center gap-3">
+            <img alt="Logo" style="width:100px" src="../src/images/logoshadow.png"/>
+            <h5>
+            XSCHOOL HIGHLIGHTS
+            </h5>
+        </div>
+    <h2>
+    
+    </h2>
+    <p>
+     Get a sense of the learning community and culture at xSchool. Our students, educators, administrators, and parents share their xSchool experiences.
+    </p>
+   </div>
+   <div class="row">
+    <div class="col-md-4">
+     <div class="card-highlights">
+      <img alt="Group of graduates celebrating" height="200" src="https://images.pexels.com/photos/5227311/pexels-photo-5227311.jpeg" width="300"/>
+      <div class="card-highlights-body">
+       <div class="icon">
+        <i class="fas fa-graduation-cap">
+        </i>
+       </div>
+       <h5>
+        THE FUTURE
+       </h5>
+       <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+       </p>
+      </div>
+     </div>
+    </div>
+    <div class="col-md-4">
+     <div class="card-highlights">
+      <img alt="Football players in action" height="200" src="https://images.pexels.com/photos/1618200/pexels-photo-1618200.jpeg" width="300"/>
+      <div class="card-highlights-body">
+       <div class="icon">
+        <i class="fas fa-football-ball">
+        </i>
+       </div>
+       <h5>
+        SPORT
+       </h5>
+       <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+       </p>
+      </div>
+     </div>
+    </div>
+    <div class="col-md-4">
+     <div class="card-highlights">
+      <img alt="People dancing at a party" height="200" src="https://live.staticflickr.com/4455/37451703790_5b8cf2f98a_b.jpg" width="300"/>
+      <div class="card-highlights-body">
+       <div class="icon">
+        <i class="fas fa-cocktail">
+        </i>
+       </div>
+       <h5>
+        DANCE THE NIGHT
+       </h5>
+       <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div  class="bg-main border d-flex align-items-center justify-content-center" style="width:100%;height:300px">
+    <p class="text-center text-white p-5">Designed to enhance the educational experience for both students and educators.<br>It’s a comprehensive management system that streamlines administrative tasks. Join us on the journey of the academic success!</p>
+  </div>
+  <footer class="pt-4 m-0">
+    <div class="heads d-flex align-items-center justify-content-center gap-3">
+        <img alt="Logo"  style="width:100px"  src="../src/images/logoshadow.png"/>
+        <h5>
+            SMS
+        </h5>
+    </div>
+    <div>
+        <ul class="d-flex align-items-center justify-content-center gap-5">
+            <li class="mx-3" class="mx-3"><a class="color-main text-decoration-none" href="" >HOME</a></li>
+            <li class="mx-3"><a class="color-main text-decoration-none" href="" >ABOUT</a></li>
+            <li class="mx-3"><a  class="color-main text-decoration-none" href="/adminLogin" >Employee</a></li>
+            <li class="mx-3"><a class="color-main text-decoration-none" href="" >FAQ</a></li>
+            <li class="mx-3"><a class="color-main text-decoration-none" href="" >HIGHLIGHTS</a></li>
+        </ul>
+    </div>
+    <div class="socials">
+        <ul class="d-flex align-items-center justify-content-center gap-5">
+            <li class="mx-3"><a class="color-main" href=""><i class="fa-brands fa-instagram"></i></a></li>
+            <li class="mx-3"><a class="color-main" href=""><i class="fa-brands fa-facebook-f"></i></a></li>
+            <li class="mx-3"><a class="color-main" href=""><i class="fa-brands fa-twitter"></i></a></li>
+        </ul>
+    </div>
+    <div class="bg-main">
+        <p class="text-center text-white p-2">All Rights Reserved</p>
+    </div>
+  </footer>
+
 <?php
     require '../views/partials/footer.php';
 

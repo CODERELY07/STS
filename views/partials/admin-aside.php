@@ -58,20 +58,48 @@
                             Dashboard
                         </a>
                     </li>
-                    <!-- <li class="sidebar-item">
+                    <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse"
                             aria-expanded="false"><i class="fa-solid fa-file-lines p-2"></i>
-                            Users
+                            Subjects
                         </a>
                         <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <?php 
+
+                            require_once(__DIR__ . '/../../paths.php');
+                            require_once CONFIG_PATH . 'config.php';
+                            $userID = $_SESSION['user_id'];
+                            $sql_student = "SELECT program FROM students WHERE userID = :userID";
+                            $stmt_student = $pdo->prepare($sql_student);
+                            $stmt_student->bindParam(':userID', $userID);
+                            $stmt_student->execute();
+                            $programName = $stmt_student->fetchColumn();
+
+                            $sql_program = "SELECT ProgramID FROM program WHERE ProgramName = :programName";
+                            $stmt_program = $pdo->prepare($sql_program);
+                            $stmt_program->bindParam(':programName', $programName);
+                            $stmt_program->execute();
+                            $programID = $stmt_program->fetchColumn();
+
+
+                            $sql_course = "SELECT * FROM courses WHERE ProgramID = :programID";
+                            $stmt_course = $pdo->prepare($sql_course);
+                            $stmt_course->bindParam(':programID', $programID);
+                            $stmt_course->execute();
+                            $rows = $stmt_course->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+                            foreach($rows as $row):?>
                             <li class="sidebar-item">
-                                <a href="/student" class="sidebar-link">Student</a>
+                                <a href="/studentdashboard" class="sidebar-link">
+                                <?=$row['CourseName'];?>
+                                </a>
                             </li>
-                            <li class="sidebar-item">
-                                <a href="/instructor" class="sidebar-link">Instructor</a>
-                            </li>
+                            <?php endforeach; ?>
                         </ul>
-                    </li> -->
+                    </li>
+                  
                 </ul>
             </div>
         </aside>

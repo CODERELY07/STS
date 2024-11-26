@@ -2,6 +2,9 @@
 
     require_once 'config/config.php';
     require_once 'partials/admin-header.php';
+
+
+
     ?>
     <div class="wrapper">
         <?php 
@@ -13,7 +16,10 @@
             ?>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
-           
+                  
+                        
+
+                    
                 </div>
             </main>
             <?php 
