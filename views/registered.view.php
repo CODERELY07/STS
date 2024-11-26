@@ -18,7 +18,7 @@
 </head>
 <body>
     <?php   require 'partials/register-header.php';?>
-        <h6 class="mx-auto mt-2 text-center p-5 color-main" style="font-weight:600;line-height:30px;">You are registered We will send email for you exam sooner and please come to the school with you data printed, download your <a class="color-main" href="/pdf" target="_blank">Here</a></h6>
+        <h6 class="mx-auto mt-2 text-uppercase text-center p-5 color-main" style="font-weight:600;line-height:30px;">You Are now registered! keep in touch, sooner we will be sending your exam result. dowNload your data <a class="color-main" href="/pdf" target="_blank">Here.</a></h6>
 
 </body>
 </html>

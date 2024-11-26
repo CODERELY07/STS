@@ -39,6 +39,47 @@ $(function(){
 });
 
 // Toggle Navigation
+// Check if email is valid on blur
+function email(){
+$('#email').on('blur', function() {
+    var email = $(this).val();
+    console.log(email);
+
+    // Check if email is not empty
+    if (email != '') {
+        $.ajax({
+            url: '../loads/check-email.php',  // The PHP file to check email existence
+            type: 'POST',
+            data: {email: email},  // Send email to the server
+            dataType: 'text',  // Expect plain text response
+            success: function(response) {
+                // Split the response by the delimiter '|'
+                var responseParts = response.split('|');
+
+                if (responseParts[0] == 'error') {
+                    // If email exists, show error message
+                    $('#email').addClass('is-invalid');  // Add invalid class
+                    $('#email-feedback').text(responseParts[1]);  // Display the second part of the response (the error message)
+                } else if (responseParts[0] == 'success') {
+                    // If email is available, remove error message
+                    $('#email').removeClass('is-invalid').addClass('is-valid');  // Remove invalid class and add valid class
+                    $('#email-feedback').text('');  // Clear error message
+                }
+            },
+            error: function() {
+                // Handle any AJAX errors
+                $('#email').addClass('is-invalid');
+                $('#email-feedback').text('There was an error with the server.');
+            }
+        });
+    } else {
+        // Remove both classes if email is empty
+        $('#email').removeClass('is-invalid').removeClass('is-valid');
+        $('#email-feedback').text('');  // Clear any messages
+    }
+});
+}
+email();
 
 // Registration JS
 $(document).ready(function(){
@@ -116,13 +157,17 @@ function validateStep(step) {
 
     return isValid;
 }
-
     // Show initial step
     showStep(currentStep);
 
     // Trigger next button click (move to the next step)
     $('.next-btn').on("click", function(e){
         e.preventDefault();
+
+        var emailInput = $('#email');
+        if (emailInput.hasClass('is-invalid')) {
+            return; 
+        }
         if (validateStep(currentStep)) {
             if(currentStep === 2) {
                 // Collect data from Step 1 and Step 2 when moving to Step 3
@@ -253,30 +298,32 @@ function validateStep(step) {
                 </div>
             </div>
         </form>
-
+        <small><b>Note: </b> Please ensure that your Gmail account exists to receive the email.</small>
         `;
 
         // Insert the collected data into Step 3
         $('#step-3').find('.form-group').html(step3Content);
     }
 
-    // Form submission handler
     $("#form").on('click', function(e){
         e.preventDefault();
-        if (validateStep(currentStep)) {
-            let formData = $("#multi-step-form").serialize();
-            $.ajax({
-                type:"POST",
-                url: '../loads/action.php',
-                data: formData,
-                success:function(data){
-                    alert(data);
-                    window.location.href = '/registered';
-                    $('#multi-step-form')[0].reset(); 
-                }
-            })
-        } else {
-            alert('Please fix the errors before submitting the form.');
+    
+        // If email is invalid, do not submit the form
+        if ($('#email').hasClass('is-invalid')) {
+            alert("Please fix the email error before submitting the form.");
+            return; 
         }
+    
+        // Validate the rest of the form (existing logic)
+        let formData = $("#multi-step-form").serialize();
+        $.ajax({
+            type:"POST",
+            url: '../loads/action.php',
+            data: formData,
+            success:function(data){
+                window.location.href = '/registered';
+                $('#multi-step-form')[0].reset(); 
+            }
+        })
     });
 });

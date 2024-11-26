@@ -19,11 +19,30 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
 
 
         if (empty($firstname) || empty($lastName) || empty($email) || empty($phone)) {
-            echo "Error: Missing required fields.";
+            echo "Missing required fields.";
             exit;
         }
-
+        $checkEmailQuery = "
+        SELECT 1 FROM instructors WHERE Email = :email
+        UNION ALL
+        SELECT 1 FROM students WHERE email = :email
+        ";
+        
+        $stmt = $pdo->prepare($checkEmailQuery);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+  
+        if ($stmt->rowCount() > 0) {
+            echo "The email address is already use!";
+            exit;
+        }
     
+    
+        $getLastRowID = "SELECT * FROM instructors WHERE InstructorID = (SELECT max(InstructorID) FROM instructors)";
+        $result = $pdo->query($getLastRowID);
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+
+
         if ($row) {
             $lastInstructorID = $row['InstructorID'];
             $numericPart = (int)substr($lastInstructorID, 4); 

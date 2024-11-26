@@ -48,7 +48,7 @@
                 <div class="form-group">
                     <label class="color-main" for="email">Email: </label>
                     <input type="email" class="form-control" name="email" id="email" required>
-                    <div class="invalid-feedback"></div>
+                    <div class="invalid-feedback" id="email-feedback"></div>
                 </div>
                 <div class="form-group">
                     <label class="color-main" for="phonenumber">Phone Number: </label>
