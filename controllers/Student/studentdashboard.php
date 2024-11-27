@@ -14,6 +14,6 @@
     }
    
     $role = 'student';
-
+    $title = "SMS Student Dashboard";
     // $sql = "SELECT * FROM courses WHERE  "
     require_once './views/studentdashboard.view.php';

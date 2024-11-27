@@ -19,6 +19,6 @@
     $users_stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
     $users_stmt->execute();
     $user = $users_stmt->fetch(PDO::FETCH_ASSOC);
-
     
+    $title = "SMS Student Edit Profile";
     require_once './views/editProfile.view.php';

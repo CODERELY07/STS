@@ -5,4 +5,5 @@
         exit(); 
     }
     $role = 'admin';
+    $title = "SMS Admin";
     require_once './views/adminstudent.view.php';

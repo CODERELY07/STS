@@ -9,4 +9,5 @@
         exit();
     }
     $role = 'admin';
+    $title = "SMS Admin Dashboard";
     require_once './views/admindashboard.view.php';
