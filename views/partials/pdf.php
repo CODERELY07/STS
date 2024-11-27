@@ -109,7 +109,7 @@ $html = "
                 <p><span>Address:</span> <b>{$row['address']}</b></p>
             </div>
             <div class='w-50 text-right'>
-                <p><span>ID No. </span><b>{$row['studID']}</b></p>
+                <p><span>ID No. </span><b>N/A</b></p>
                 <p><span>Email: </span><b>{$row['email']}</b></p>
                 <p><span>Phone No. </span><b>{$row['phone']}</b></p>
             </div>
@@ -131,33 +131,33 @@ $html = "
                 </thead>
                 <tbody>";
 
-foreach ($courses as $course) {
-    $html .= "
-                    <tr>
-                        <td>" . htmlspecialchars($course['SubjectCode']) . "</td>
-                        <td>" . htmlspecialchars($course['CourseName']) . "</td>
-                        <td>" . htmlspecialchars($course['units']) . "</td>
-                        <td>" . htmlspecialchars($course['TF']) . "</td>
-                        <td>" . htmlspecialchars($course['Laboratory']) . "</td>
-                        <td>N/A</td>
-                    </tr>";
-}
+                foreach ($courses as $course) {
+                    $html .= "
+                                    <tr>
+                                        <td>" . htmlspecialchars($course['SubjectCode']) . "</td>
+                                        <td>" . htmlspecialchars($course['CourseName']) . "</td>
+                                        <td>" . htmlspecialchars($course['units']) . "</td>
+                                        <td>" . htmlspecialchars($course['TF']) . "</td>
+                                        <td>" . htmlspecialchars($course['Laboratory']) . "</td>
+                                        <td>N/A</td>
+                                    </tr>";
+                }
 
-$totalUnits = 0;
-$totalTF = 0;
-$totalLab = 0;
+                $totalUnits = 0;
+                $totalTF = 0;
+                $totalLab = 0;
 
-foreach ($courses as $course) {
-    $totalUnits += (float)$course['units'];
-    $totalTF += (float)$course['TF'];
-    $totalLab += (float)$course['Laboratory'];
-}
+                foreach ($courses as $course) {
+                    $totalUnits += (float)$course['units'];
+                    $totalTF += (float)$course['TF'];
+                    $totalLab += (float)$course['Laboratory'];
+                }
 
-$totalUnits = number_format($totalUnits, 1);
-$totalTF = number_format($totalTF, 1);
-$totalLab = number_format($totalLab, 1);
+                $totalUnits = number_format($totalUnits, 1);
+                $totalTF = number_format($totalTF, 1);
+                $totalLab = number_format($totalLab, 1);
 
-$html .= "
+                $html .= "
                 </tbody>
                 <tfoot class='table-footer'>
                     <tr>

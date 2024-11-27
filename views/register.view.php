@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group">
                     <label class="color-main" for="dateofbirth">Date Of Birth: </label>
-                    <input type="date" class="form-control" name="dateofbirth" id="dateofbirth" required>
+                    <input type="date" class="form-control" name="dateofbirth" id="dateofbirth"  min="2000-01-01" max="2007-12-31" required>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="form-group">
                     <label class="color-main" for="formerSchoolYear">School Year: </label>
-                    <input type="date" class="form-control" name="formerSchoolYear" id="formerSchoolYear" required>
+                    <input type="date" class="form-control" name="formerSchoolYear" id="formerSchoolYear"  min="2020-01-01" max="2023-12-31" required>
                     <div class="invalid-feedback"></div>
                 </div>
                 <h6 class="color-main">Select Department to Enroll</h6>

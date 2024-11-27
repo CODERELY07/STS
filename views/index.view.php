@@ -2,7 +2,7 @@
     require 'config/config.php';
     require 'partials/head.php';
 
-    $sql = "SELECT * FROM courses WHERE popular = 1";
+    $sql = "SELECT * FROM program WHERE popular = 1";
     $stmt = $pdo->query($sql);
     $stmt->execute();
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -35,7 +35,6 @@
                         <h1>STREAMLINING ADMINISTRATIVE<br>TASKS FOR EDUCATORS</h1>
                     </div>
                 </div>
-
             </div>
             <div>
                 <a href="/register" class="btn btn-outline-light">REGISTER</a>
@@ -43,8 +42,6 @@
             </div>
         </div>
     </section>
-
-
     </div>
 
     </div>
@@ -54,7 +51,7 @@
         <div class="heads d-flex align-items-center justify-content-center gap-3">
             <img alt="Logo"  style="width:100px"  src="../src/images/logoshadow.png"/>
             <h5>
-                POPULAR COURSES
+                FEATURED PROGRAM
             </h5>
         </div>
         <div class="row mt-4">
@@ -62,13 +59,13 @@
                 <div class="col-md-4 mb-4">
                     <div class="course-card">
                         <div class="overlay-hover">
-                            <p class="text-center">
-                                <?= $row["CourseDescription"] ?>
+                            <p class="text-center color-main">
+                                <?= $row["ProgramDescription"] ?>
                             </p>
                         </div>
                         <img width="100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg5HJ_Bbmk5B2a4gCG8KAZHiCHzzPkGwrRuA&s"/>
                         <div class="course-title-overlay">
-                            <?=  htmlspecialchars($row['CourseName']) ?>
+                            <?=  htmlspecialchars($row['ProgramAbbr']) ?>
                         </div>
                     </div>
                 </div>
