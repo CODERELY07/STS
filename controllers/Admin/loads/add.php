@@ -16,12 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         $lastName = trim($_POST['lastname']);
         $email = trim($_POST['email']);
         $phone = trim($_POST['phone']);
+        $errors = [];
 
-
-        if (empty($firstname) || empty($lastName) || empty($email) || empty($phone)) {
-            echo "Missing required fields.";
-            exit;
-        }
         $checkEmailQuery = "
         SELECT 1 FROM instructors WHERE Email = :email
         UNION ALL
@@ -36,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
             echo "The email address is already use!";
             exit;
         }
-    
     
         $getLastRowID = "SELECT * FROM instructors WHERE InstructorID = (SELECT max(InstructorID) FROM instructors)";
         $result = $pdo->query($getLastRowID);

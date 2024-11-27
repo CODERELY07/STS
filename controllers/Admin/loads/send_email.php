@@ -1,14 +1,15 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
+session_start();
+$_SESSION['message'] = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
-
+    
     // Get and validate the user ID
     $id = $_POST['id'];
 
     if (!is_numeric($id) || $id <= 0) {
-        echo "Invalid User ID.";
+        $_SESSION['message'] = "Invalid User ID.";
         exit;
     }
 
@@ -17,14 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
 
     try {
         // Fetch the email address based on the user ID
-        $stmt = $pdo->prepare("SELECT email, status FROM students WHERE id = :id");
+        $stmt = $pdo->prepare("SELECT * FROM students WHERE id = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$user) {
-            echo "No user found with that ID.";
+              $_SESSION['message'] = "No user found with that ID.";
             exit;
         }
 
@@ -65,10 +66,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
             $fail = "
                 <html>
                 <head>
-                    <title>Complete Your Registration</title>
+                    <title>Your Exam Status</title>
                 </head>
                 <body>
-                    <p>Hello,</p>
+                    <p>Hello, ";
+            $fail .= $user['firstname'] . ' ' . $user['lastname'];
+            $fail .= "</p>
                     <p>We're Sorry you failed the test.</p>
                 </body>
                 </html>
@@ -84,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
                 <p>Thank you for registering with us! To complete your registration, please click the following link:</p>
                 <p><a href='" . $registration_link . "'>Complete Registration</a></p>
                 <p>If you did not request this registration, please ignore this email.</p>
-                <p>Best regards,<br>The Example Team</p>
+                <p>Best regards,<br>SMS</p>
             </body>
             </html>
             ";
@@ -100,18 +103,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
 
             // Send the email
             if ($mail->send()) {
-                echo 'Registration email has been sent to ' . $email;
+                 $_SESSION['message'] =  'Registration email has been sent to ' . $email;
             } else {
-                echo 'Failed to send registration email.';
+                 $_SESSION['message'] =  'Failed to send registration email.';
             }
 
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+             $_SESSION['message'] =  "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
 
     } catch (PDOException $e) {
-        echo "Database error: " . $e->getMessage();
+         $_SESSION['message'] =  "Database error: " . $e->getMessage();
     }
+    header('Location: /student');
+    exit();
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['InstructorID'])) {
 
@@ -119,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['InstructorID'])) {
     $InstructorID = $_POST['InstructorID'];
 
     if (!is_numeric($InstructorID) || $InstructorID <= 0) {
-        echo "Invalid User ID.";
+         $_SESSION['message'] =  "Invalid User ID.";
         exit;
     }
 
@@ -128,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['InstructorID'])) {
 
     try {
         // Fetch the email address based on the user ID
-        $stmt = $pdo->prepare("SELECT email FROM instructors WHERE InstructorID = :InstructorID");
+        $stmt = $pdo->prepare("SELECT email,FirstName, LastName FROM instructors WHERE InstructorID = :InstructorID");
         $stmt->bindParam(':InstructorID', $InstructorID, PDO::PARAM_INT);
         $stmt->execute();
 
@@ -136,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['InstructorID'])) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$user) {
-            echo "No user found with that ID.";
+             $_SESSION['message'] =  "No user found with that ID.";
             exit;
         }
 
@@ -178,11 +183,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['InstructorID'])) {
                 <title>Complete Your Registration</title>
             </head>
             <body>
-                <p>Hello,</p>
+                <p>Hello, {$user['FirstName']} {$user['LastName']}</p>
                 <p>You are the new Instructor Please click the link for you account registration</p>
                 <p><a href='" . $registration_link . "'>Complete Registration</a></p>
                 <p>If you did not request this registration, please ignore this email.</p>
-                <p>Best regards,<br>The Example Team</p>
+                <p>Best regards,<br>SMS</p>
             </body>
             </html>
             ";
@@ -190,17 +195,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['InstructorID'])) {
       
             // Send the email
             if ($mail->send()) {
-                echo 'Registration email has been sent to ' . $email;
+                 $_SESSION['message'] =  'Registration email has been sent to ' . $email;
             } else {
-                echo 'Failed to send registration email.';
+                 $_SESSION['message'] =  'Failed to send registration email.';
             }
 
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+             $_SESSION['message'] =  "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
 
     } catch (PDOException $e) {
-        echo "Database error: " . $e->getMessage();
+         $_SESSION['message'] =  "Database error: " . $e->getMessage();
     }
+    header('Location: /instructor');
+    exit();
 }
 ?>

@@ -1,9 +1,10 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
+$login = true;
 require_once '../config/config.php';
-
+require_once '../views/partials/head.php';
+require_once '../views/partials/register-header.php';
 function createAccount($id, $token, $username, $password, $type) {
     global $pdo;
 
@@ -11,7 +12,16 @@ function createAccount($id, $token, $username, $password, $type) {
         echo "Username and password are required.";
         return;
     }
+        // Check for duplicate username
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = :username");
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+    $usernameCount = $stmt->fetchColumn();
 
+    if ($usernameCount > 0) {
+        echo "<p class='mt-4 text-center color-main text-uppercase'>Username is already taken. Please choose another one.</p>";
+        return;
+    }
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $status = "enrolled"; 
 
@@ -31,7 +41,7 @@ function createAccount($id, $token, $username, $password, $type) {
         $stmt->execute();
 
         if ($stmt->rowCount() === 0) {
-            echo "Invalid token or user ID.";
+            echo "<p class='mt-4 text-center color-main text-uppercase'>Invalid token or user ID.</p>";
             return;
         }
 
@@ -59,8 +69,23 @@ function createAccount($id, $token, $username, $password, $type) {
         }
 
         $stmt->execute();
-
-        echo "Account successfully created!";
+        echo "<p class='mt-4 text-center color-main text-uppercase'>Account successfully created!</p>"; 
+        echo "<p class='mt-2 text-center'>Redirecting to login, please wait...</p>";
+        if ($type == 'student') {
+            echo "
+            <script>
+            setTimeout(function() {
+                window.location.href = '/login';  
+            }, 5000);
+            </script>";
+        } else {
+            echo "
+            <script>
+            setTimeout(function() {
+                window.location.href = '/adminLogin';  
+            }, 5000);
+            </script>";
+        }
     } catch (PDOException $e) {
         echo "Database error: " . $e->getMessage();
     }
@@ -91,15 +116,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'], $_GET['token'])) {
         }
 
         
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">
+        echo '
+          <div class="container">
+          <div class="row mt-5 justify-content-center">
+           <div class="col-md-6 mt-5">
+           <h2 class="text-center display-5">Create Your Account</h2>
+           <form action="' . $_SERVER['PHP_SELF'] . '" method="POST">
                 <input type="hidden" name="id" value="' . $id . '">
                 <input type="hidden" name="token" value="' . $token . '">
-                <label for="username">Username:</label>
-                <input type="text" name="username" required><br>
-                <label for="password">Password:</label>
-                <input type="password" name="password" required><br>
-                <button type="submit">Create Account</button>
-              </form>';
+                 <div class="form-group my-3">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" name="username" required>
+                </div>
+                 <div class="form-group my-3">
+                    <label for="password">Password:</label>
+                    <input class="form-control" type="password" name="password" required>
+                </div>
+               
+                <button type="submit" class="btn btn-primary w-100">Create Account</button>
+              </form>
+              </div>
+              </div>
+              </div>
+              '
+              ;
     } catch (PDOException $e) {
         echo "Database error: " . $e->getMessage();
     }
@@ -128,15 +168,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['InstructorID'], $_GET['t
         }
 
         // Form for instructor account creation
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">
+        echo '
+        <div class="container">
+        <div class="row mt-5 justify-content-center">
+        <div class="col-md-6 mt-5">
+        <h2 class="text-center display-5">Create Your Account</h2>
+            <form action="' . $_SERVER['PHP_SELF'] . '" method="POST">
                 <input type="hidden" name="InstructorID" value="' . $InstructorID . '">
-                <input type="hidden" name="token" value="' . $token . '">
+            <input type="hidden" name="token" value="' . $token . '">
+                <div class="form-group my-3">
                 <label for="username">Username:</label>
-                <input type="text" name="username" required><br>
+                <input type="text" class="form-control" name="username" required>
+            </div>
+                <div class="form-group my-3">
                 <label for="password">Password:</label>
-                <input type="password" name="password" required><br>
-                <button type="submit">Create Account</button>
-              </form>';
+                <input class="form-control" type="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100">Create Account</button>
+            </form>
+            </div>
+            </div>
+            </div>
+            ';
     } catch (PDOException $e) {
         echo "Database error: " . $e->getMessage();
     }

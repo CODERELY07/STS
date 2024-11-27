@@ -1,6 +1,7 @@
 <?php 
     require_once 'config/config.php';
        require_once 'partials/admin-header.php';
+       
     ?>
     <div class="wrapper">
         <?php 
@@ -10,7 +11,19 @@
             <?php 
                 require_once 'partials/admin-nav.php';
             ?>
-   
+      <?php if(isset($_SESSION['message'])): ?> 
+            <div class="alert alert-info text-center" role="alert" id="alertMessage">
+                <?= $_SESSION['message']; ?>
+            </div>
+            <script>
+                setTimeout(function() {
+                var alert = document.getElementById('alertMessage');
+                    if (alert) {
+                        alert.style.display = 'none';
+                    }
+                }, 5000); 
+            </script>
+            <?php endif; unset($_SESSION['message']); ?>
          <!-- Edit Status Modal -->
             <div class="modal fade" id="addInstructor" tabindex="-1" role="dialog" aria-labelledby="addInstructorLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -22,20 +35,45 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="addInstructorForm">
-                            <label for="firstname">First Name: </label>
-                            <input type="text" name="firstname" id="firstname" class="form-control">
-                            <label for="middlename">Middle Name: </label>
-                            <input type="text" name="middlename" id="middlename" class="form-control">
-                            <label for="lastname">Last Name: </label>
-                            <input type="text" name="lastname" id="lastname" class="form-control">
-                            <label for="email">Email: </label>
-                            <input type="email" name="email" id="email" class="form-control">
-                            <label for="phone">Phone: </label>
-                            <input type="text" name="phone" id="phone" class="form-control">
-                            <button type="submit" name="btn_add"
-                            class="btn btn-primary float-end mt-3">Add</button>
-                        </form>
+                    <form id="addInstructorForm" method="POST">
+                        <label for="firstname">First Name: </label>
+                        <input type="text" name="firstname" id="firstname" class="form-control" 
+                            value="<?php echo isset($firstname) ? htmlspecialchars($firstname) : ''; ?>">
+                        <?php if (isset($errors['firstname'])): ?>
+                            <div class="text-danger"><?php echo $errors['firstname']; ?></div>
+                        <?php endif; ?>
+
+                        <label for="middlename">Middle Name: </label>
+                        <input type="text" name="middlename" id="middlename" class="form-control" 
+                            value="<?php echo isset($middlename) ? htmlspecialchars($middlename) : ''; ?>">
+                        <?php if (isset($errors['middlename'])): ?>
+                            <div class="text-danger"><?php echo $errors['middlename']; ?></div>
+                        <?php endif; ?>
+
+                        <label for="lastname">Last Name: </label>
+                        <input type="text" name="lastname" id="lastname" class="form-control" 
+                            value="<?php echo isset($lastname) ? htmlspecialchars($lastname) : ''; ?>">
+                        <?php if (isset($errors['lastname'])): ?>
+                            <div class="text-danger"><?php echo $errors['lastname']; ?></div>
+                        <?php endif; ?>
+
+                        <label for="email">Email: </label>
+                        <input type="email" name="email" id="email" class="form-control" 
+                            value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>">
+                        <?php if (isset($errors['email'])): ?>
+                            <div class="text-danger"><?php echo $errors['email']; ?></div>
+                        <?php endif; ?>
+
+                        <label for="phone">Phone: </label>
+                        <input type="text" name="phone" id="phone" class="form-control" 
+                            value="<?php echo isset($phone) ? htmlspecialchars($phone) : ''; ?>">
+                        <?php if (isset($errors['phone'])): ?>
+                            <div class="text-danger"><?php echo $errors['phone']; ?></div>
+                        <?php endif; ?>
+
+                        <button type="submit" name="btn_add" class="btn btn-primary float-end mt-3">Add</button>
+                    </form>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 

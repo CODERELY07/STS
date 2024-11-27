@@ -10,8 +10,22 @@
             <?php 
                 require_once 'partials/admin-nav.php';
             ?>
-   
+          <?php if(isset($_SESSION['message'])): ?> 
+            <div class="alert alert-info text-center" role="alert" id="alertMessage">
+                <?= $_SESSION['message']; ?>
+            </div>
+            <script>
+                setTimeout(function() {
+                var alert = document.getElementById('alertMessage');
+                    if (alert) {
+                        alert.style.display = 'none';
+                    }
+                }, 5000); 
+            </script>
+            <?php endif; unset($_SESSION['message']); ?>
+
          <!-- Edit Status Modal -->
+         
         <div class="modal fade" id="editStatus" tabindex="-1" role="dialog" aria-labelledby="editStatusLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

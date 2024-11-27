@@ -5,11 +5,12 @@
 ?>
 
 <body>
+<?php   require 'partials/register-header.php';?>
 <div class="container-fluid">
     <div class="container">
         <div class="row mt-5 justify-content-center">
             <div class="col-md-6 mt-5">
-                <h2 class="text-center">Login</h2>
+                <h2 class="text-center display-5">Login</h2>
                 <form id="login-form">
                     <div class="form-group my-3">
                         <label for="username">Username</label>
