@@ -1,3 +1,4 @@
+<!-- This is the registration form of students -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -16,6 +17,11 @@
         <form id="multi-step-form">
             <div id="step-1" class="step step-active">
                 <p class="color-main">Personal Information</p>
+                <div class="form-group">
+                    <label class="color-main" for="email">Email: </label>
+                    <input type="email" class="form-control" name="email" id="email" required>
+                    <div class="invalid-feedback" id="email-feedback"></div>
+                </div>
                 <div class="form-group">
                     <label class="color-main" for="firstname">First Name: </label>
                     <input type="text" class="form-control"name="firstname" id="firstname" required>
@@ -46,11 +52,7 @@
                     <input type="date" class="form-control" name="dateofbirth" id="dateofbirth"  min="2000-01-01" max="2007-12-31" required>
                     <div class="invalid-feedback"></div>
                 </div>
-                <div class="form-group">
-                    <label class="color-main" for="email">Email: </label>
-                    <input type="email" class="form-control" name="email" id="email" required>
-                    <div class="invalid-feedback" id="email-feedback"></div>
-                </div>
+
                 <div class="form-group">
                     <label class="color-main" for="phonenumber">Phone Number: </label>
                     <input type="number" class="form-control" name="phonenumber" id="phonenumber" required>
@@ -61,7 +63,7 @@
                     <input type="text" class="form-control" name="address" id="address" required>
                     <div class="invalid-feedback"></div>
                 </div>
-                <button class="btn btn-primary float-end next-btn">Next</button>
+                <button class="btn btn-primary float-end next-btn" id="step1-btn">Next</button>
             </div>
 
             <div id="step-2" class="step">
@@ -89,7 +91,10 @@
                         <?php
                             foreach($departments as $department):
                         ?>
-                        <option value="<?php echo $department['deparmentName'] ?>"><?php echo $department['deparmentName'] ?></option>
+                        <option value="<?php echo htmlspecialchars($department['deparmentName'], ENT_QUOTES, 'UTF-8'); ?>">
+                            <?php echo htmlspecialchars($department['deparmentName'], ENT_QUOTES, 'UTF-8'); ?>
+                        </option>
+
                         <?php endforeach;?>
                     </select>
                     <div class="invalid-feedback"></div>

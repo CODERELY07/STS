@@ -1,10 +1,16 @@
 <?php
+
+//this check if the email is exist in the database
 // Include your database connection file
 require '../config/config.php';
 
 $email = $_POST['email'];
+$email = filter_var($email, FILTER_SANITIZE_EMAIL);
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo 'error|Invalid email format.';
+    exit;
+}
 
-// Prepare a query to check if the email exists in either the instructors or students table
 $query = "
     SELECT Email FROM instructors WHERE Email = :email
     UNION
@@ -18,9 +24,9 @@ try {
 
     // If email exists in either table, return an error message
     if ($stmt->rowCount() > 0) {
-        echo 'error|This email is already in use.'; // Return error message after 'error|'
+        echo 'error|This email is already in use.'; 
     } else {
-        echo 'success|Email is available.'; // Return success message after 'success|'
+        echo 'success|Email is available.'; 
     }
 
 } catch (PDOException $e) {

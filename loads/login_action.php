@@ -1,4 +1,6 @@
 <?php
+// Handles user login by validating input, checking credentials, and starting a session with a token.
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -9,9 +11,13 @@ session_start();
 $response = ['success' => false, 'error' => []];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST['username']);
+    $username = htmlspecialchars(trim($_POST['username']), ENT_QUOTES, 'UTF-8');
     $password = $_POST['password'];
 
+    if (!preg_match("/^[a-zA-Z0-9_]+$/", $username)) {
+        $response['error']['username'] = "Username can only contain letters, numbers, and underscores.";
+    }
+    
     // Validate username and password
     if (empty($username)) {
         $response['error']['username'] = "Username is required";

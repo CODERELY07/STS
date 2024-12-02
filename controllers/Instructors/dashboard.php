@@ -1,4 +1,4 @@
-
+<!-- This code is for future purposes -->
 <body>
 <div class="container-fluid">
     <div class="row">
@@ -62,5 +62,5 @@
 </div>
 
 <?php
-    require '.././partials/footer.php';  // Include the footer partial
+    require '.././partials/footer.php';  
 ?>

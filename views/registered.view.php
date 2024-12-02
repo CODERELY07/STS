@@ -1,5 +1,5 @@
+<!-- This code is for student after the registration -->
 <?php
-    
     define("CONTROLLERS_PATH" , __DIR__ . '/../../controllers/index.php');
 
     if(!isset($_SESSION['registerd']) && $_SESSION['registered'] == FALSE){
@@ -19,7 +19,6 @@
 </head>
 <body>
     <?php   require 'partials/register-header.php';?>
-        <h6 class="mx-auto mt-2 text-uppercase text-center p-5 color-main" style="font-weight:600;line-height:30px;">You Are now registered! keep in touch, sooner we will be sending your exam result. dowNload your data <a class="color-main" href="/pdf" target="_blank">Here.</a></h6>
-
+    <h6 class="mx-auto mt-2 text-uppercase text-center p-5 color-main" style="font-weight:600;line-height:30px;">You Are now registered! keep in touch, sooner we will be sending your exam result. dowNload your data <a class="color-main" href="/pdf" target="_blank">Here.</a></h6>
 </body>
 </html>

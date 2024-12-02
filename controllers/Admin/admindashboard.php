@@ -1,4 +1,6 @@
 <?php
+    //includes the admin dashboard view to display the content
+    // manage session for admin dashboard
     session_start();   
     if (empty($_SESSION)) {
         header("Location: /adminLogin");

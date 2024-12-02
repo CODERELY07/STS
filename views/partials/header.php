@@ -1,3 +1,5 @@
+<!-- Navbar for top navigation with brand/logo, menu items (Inquire, Apply, Courses), and mobile toggle functionality. -->
+
 <div>
     <nav class="navbar fixed-top navbar-expand-lg d-flex justify-content-between align-items-center py-3 px-4 header" id="header">
         <div class="container-fluid position-relative">
@@ -28,4 +30,3 @@
         </div>
     </nav>
 </div>
-

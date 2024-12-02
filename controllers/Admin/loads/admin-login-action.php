@@ -1,5 +1,5 @@
 <?php
-    
+    // This script handles login requests for different user types (admin, instructor) and returns JSON responses.
     require 'config/config.php';
     header('Content-Type: application/json');
     session_start();

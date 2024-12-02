@@ -1,5 +1,7 @@
 <?php
+   // This script contains functions for reading CSV data, calculating age, and determining school years based on graduation dates.
 
+   //read csv file
     function readCsv($filename){
         $rows = [];
 
@@ -13,6 +15,8 @@
         return $rows;
     }
 
+
+    // calculate age on the birthdate
     function getAge($birthdate){
        
         $reformattedDate = DateTime::createFromFormat('Y-d-m', $birthdate)->format('Y-m-d');
@@ -26,6 +30,7 @@
         return $age;
     }
 
+    //determine the school year based on the graduation date
     function getSchoolYear($graduationDate) {
         $graduationDateObj = new DateTime($graduationDate);
     

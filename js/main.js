@@ -29,16 +29,15 @@ $(function(){
                 }
             }
         }).fail(function(xhr, status, error){
-            console.log("Error: " + error);  // Log the specific error
-            console.log("Status: " + status); // Log the status
-            console.log("Response Text: " + xhr.responseText);  // Log the response text
+            console.log("Error: " + error);  
+            console.log("Status: " + status); 
+            console.log("Response Text: " + xhr.responseText); 
             passwordError.text("Sign In Error");
         });
         
     })
 });
 
-// Toggle Navigation
 // Check if email is valid on blur
 function email(){
 $('#email').on('blur', function() {
@@ -48,22 +47,19 @@ $('#email').on('blur', function() {
     // Check if email is not empty
     if (email != '') {
         $.ajax({
-            url: '../loads/check-email.php',  // The PHP file to check email existence
+            url: '../loads/check-email.php', 
             type: 'POST',
-            data: {email: email},  // Send email to the server
-            dataType: 'text',  // Expect plain text response
+            data: {email: email},  
+            dataType: 'text',  
             success: function(response) {
-                // Split the response by the delimiter '|'
                 var responseParts = response.split('|');
-
                 if (responseParts[0] == 'error') {
-                    // If email exists, show error message
-                    $('#email').addClass('is-invalid');  // Add invalid class
-                    $('#email-feedback').text(responseParts[1]);  // Display the second part of the response (the error message)
+                    $('#email').addClass('is-invalid'); 
+                    $('#email-feedback').text(responseParts[1]); 
                 } else if (responseParts[0] == 'success') {
-                    // If email is available, remove error message
-                    $('#email').removeClass('is-invalid').addClass('is-valid');  // Remove invalid class and add valid class
-                    $('#email-feedback').text('');  // Clear error message
+                   
+                    $('#email').removeClass('is-invalid').addClass('is-valid');  
+                    $('#email-feedback').text(''); 
                 }
             },
             error: function() {
@@ -75,7 +71,7 @@ $('#email').on('blur', function() {
     } else {
         // Remove both classes if email is empty
         $('#email').removeClass('is-invalid').removeClass('is-valid');
-        $('#email-feedback').text('');  // Clear any messages
+        $('#email-feedback').text(''); 
     }
 });
 }
@@ -83,10 +79,10 @@ email();
 
 // Registration JS
 $(document).ready(function(){
-    // Track current step
+  
     let currentStep = 1;    
 
-    // Control which step is visible
+   
     function showStep(step) {
         $('.step').removeClass('step-active').addClass('d-none');
         $('#step-' + step).removeClass('d-none').addClass('step-active');
@@ -100,11 +96,10 @@ $(document).ready(function(){
     }
 
     // Validate individual input fields
-        // Validate individual input fields
     function validateInputs(input, callback){
         let isValid = true;
 
-        // For text, email, number, and date inputs, check if empty
+      
         if(!['data-text'] && input.val() === '') {
             callback(input, 'Please input your ' + input.attr('id'));
             isValid = false;
@@ -123,7 +118,7 @@ $(document).ready(function(){
             callback(input, input[0].validationMessage);
             isValid = false;
         } else {
-            // If valid, remove error styling and clear error message
+          
             input.removeClass('is-invalid').addClass('is-valid');
             input.siblings('.invalid-feedback').text('');
         }
@@ -141,7 +136,6 @@ function validateStep(step) {
     // Validate select elements (like gender, department, program)
     selects.each(function(){
         let select = $(this);
-        // Only trigger error if the selected value is an empty string (""), which indicates no valid option selected
         if (select.val() === "" || !select.find('option:selected').val()) {
             isValid = validateInputs(select, setInvalid) && isValid;
         } else {
@@ -164,18 +158,128 @@ function validateStep(step) {
     $('.next-btn').on("click", function(e){
         e.preventDefault();
 
-        var emailInput = $('#email');
-        if (emailInput.hasClass('is-invalid')) {
-            return; 
-        }
+        // var emailInput = $('#email');
+        // if (emailInput.hasClass('is-invalid')) {
+        //     return; 
+        // }
         if (validateStep(currentStep)) {
-            if(currentStep === 2) {
-                // Collect data from Step 1 and Step 2 when moving to Step 3
-                console.log('test')
-                displayStep3Data();
+            if (currentStep === 1) {
+                const firstname = $('#firstname').val();
+                const lastname = $('#lastname').val();
+                const middlename = $('#middlename').val();
+                const address = $('#address').val();
+                const birthdate = $('#dateofbirth').val();
+                const email = $('#email').val();
+                const phone = $('#phonenumber').val();
+
+                const formData = {
+                    firstname: firstname,
+                    lastname: lastname,
+                    middlename: middlename,
+                    address: address,
+                    birthdate: birthdate,
+                    email: email,
+                    phone: phone
+                };
+
+                // Send the data to the PHP file for authentication and validation
+                $.ajax({
+                    type: "POST",
+                    url: '../loads/step1Authentication.php', 
+                    data: formData,
+                    success: function(response) {
+                    
+                    $('#firstname, #lastname, #middlename, #email, #phonenumber, #address').removeClass('is-invalid');
+                    $('.invalid-feedback').text('');
+
+                    if (response === 'success') {
+                        currentStep++;
+                        showStep(currentStep);
+                    } else {
+                        // Add 'is-invalid' class and display the error messages
+                        if (response.includes('First name should contain only letters')) {
+                            $('#firstname').addClass('is-invalid');
+                            $('#firstname').siblings('.invalid-feedback').text(response);
+                        }
+
+                        if (response.includes('Last name should contain only letters')) {
+                            $('#lastname').addClass('is-invalid');
+                            $('#lastname').siblings('.invalid-feedback').text(response);
+                        }
+
+                        if (response.includes('Middle name should contain only letters')) {
+                            $('#middlename').addClass('is-invalid');
+                            $('#middlename').siblings('.invalid-feedback').text(response);
+                        }
+
+                        if (response.includes('Address must be in the format')) {
+                            $('#address').addClass('is-invalid');
+                            $('#address').siblings('.invalid-feedback').text(response);
+                        }
+
+                        if (response.includes('Email address is not valid')) {
+                            $('#email').addClass('is-invalid');
+                            $('#email').siblings('.invalid-feedback').text(response);
+                        }
+
+                        if (response.includes('Phone number must be exactly 11 digits')) {
+                            $('#phonenumber').addClass('is-invalid');
+                            $('#phonenumber').siblings('.invalid-feedback').text(response);
+                        }
+                    }
+                },
+                error: function() {
+                    alert("Error during the authentication process. Please try again.");
+                }
+                });
             }
-            currentStep++;
-            showStep(currentStep);
+            else if(currentStep === 2) {
+                const formerSchoolName = $('#formerSchoolName').val();
+                const formerSchoolAddress = $('#formerSchoolAddress').val();
+             
+
+                const formData = {
+                    formerSchoolName: formerSchoolName,
+                    formerSchoolAddress: formerSchoolAddress
+                };
+
+                // Send the data to the PHP file for authentication and validation
+                $.ajax({
+                    type: "POST",
+                    url: '../loads/step2Authentication.php', 
+                    data: formData,
+                    success: function(response) {
+                    
+                    $('#formerSchoolName, #formerSchoolAddress').removeClass('is-invalid');
+                    $('.invalid-feedback').text('');
+
+                    if (response === 'success') {
+                        currentStep++;
+                        showStep(currentStep);
+                        displayStep3Data();
+                    } else {
+                        if (response.includes('Former school name should contain only letters, spaces, and symbols')) {
+                            $('#formerSchoolName').addClass('is-invalid');
+                            $('#formerSchoolName').siblings('.invalid-feedback').text(response);
+                        }
+
+                        if (response.includes('Former school address must be in the format: Barangay, City, Municipality')) {
+                            $('#formerSchoolAddress').addClass('is-invalid');
+                            $('#formerSchoolAddress').siblings('.invalid-feedback').text(response);
+                        }
+                    }
+                },
+                error: function() {
+                    alert("Error during the authentication process. Please try again.");
+                }
+                });
+               
+            }else{  
+                currentStep++;
+                showStep(currentStep);
+            }
+                
+            
         }
     });
 
@@ -188,6 +292,7 @@ function validateStep(step) {
 
     // Function to collect data from Step 1 and Step 2 and display in Step 3
     function displayStep3Data() {
+        
         // Get data from Step 1
         const firstname = $('#firstname').val();
         const middlename = $('#middlename').val();
@@ -211,72 +316,72 @@ function validateStep(step) {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="color-main" for="firstName">
+                        <label class="color-main">
                             First Name:
                         </label>
-                        <input class="form-control" id="firstName" value="${firstname}" type="text" disabled />
+                        <input class="form-control" value="${firstname}" type="text" disabled />
                     </div>
                     <div class="form-group">
-                        <label class="color-main" for="MiddleName">
+                        <label class="color-main">
                             Middle Name:
                         </label>
-                        <input class="form-control" id="MiddleName" value="${middlename}" type="text" disabled />
+                        <input class="form-control" value="${middlename}" type="text" disabled />
                     </div>
                     <div class="form-group">
-                        <label class="color-main" for="lastName">
+                        <label class="color-main">
                             Last Name:
                         </label>
-                        <input class="form-control" id="lastName" value="${lastname}" type="text" disabled />
+                        <input class="form-control"  value="${lastname}" type="text" disabled />
                     </div>
                     <div class="form-group">
-                        <label class="color-main" for="gender">
+                        <label class="color-main">
                             Gender:
                         </label>
-                        <input class="form-control" id="gender" value="${gender}" type="text" disabled />
+                        <input class="form-control"value="${gender}" type="text" disabled />
                     </div>
                     <div class="form-group">
-                        <label class="color-main" for="birthdate">
+                        <label class="color-main">
                             Birthdate:
                         </label>
-                        <input class="form-control" id="birthdate" value="${dateofbirth}" type="text" disabled />
+                        <input class="form-control"  value="${dateofbirth}" type="text" disabled />
                     </div>
                     <div class="form-group">
-                        <label class="color-main" for="email">
+                        <label class="color-main" >
                             Email:
                         </label>
-                        <input class="form-control" id="email" value="${email}" type="email" disabled />
+                        <input class="form-control"  value="${email}" type="email" disabled />
                     </div>
                     <div class="form-group">
-                        <label class="color-main" for="phone">
+                        <label class="color-main" >
                             Phone No:
                         </label>
-                        <input class="form-control" id="phone" value="${phonenumber}" type="text" disabled />
+                        <input class="form-control" value="${phonenumber}" type="text" disabled />
                     </div>
                     <div class="form-group">
-                        <label class="color-main" for="address">
+                        <label class="color-main">
                             Address:
                         </label>
-                        <input class="form-control" id="address" value="${address}" type="text" disabled />
+                        <input class="form-control" value="${address}" type="text" disabled />
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="color-main" for="pastInstitution">
+                        <label class="color-main">
                             Past Institution:
                         </label>
-                        <input class="form-control" id="pastInstitution" value="${formerSchoolName}" type="text" disabled />
+                        <input class="form-control" value="${formerSchoolName}" type="text" disabled />
                     </div>
                     <div class="form-group">
-                        <label class="color-main" for="pastInstitutionAddress">
+                        <label class="color-main">
                             Past Institution Address:
                         </label>
-                        <input class="form-control" id="pastInstitutionAddress" value="${formerSchoolAddress}" type="text" disabled />
+                        <input class="form-control"  value="${formerSchoolAddress}" type="text" disabled />
                     </div>
                     <div class="form-group">
-                        <label class="color-main" for="schoolYear">
+                        <label class="color-main">
                             School Year:
                         </label>
-                        <input class="form-control" id="schoolYear" value="${formerSchoolYear}" type="text" disabled />
+                        <input class="form-control" value="${formerSchoolYear}" type="text" disabled />
                     </div>
                     <div class="form-group">
                         <label class="color-main">
@@ -284,16 +389,16 @@ function validateStep(step) {
                         </label>
                     </div>
                     <div class="form-group">
-                        <label class="color-main" for="department">
+                        <label class="color-main">
                             Department:
                         </label>
-                        <input class="form-control" id="department" value="${department}" type="text" disabled />
+                        <input class="form-control" value="${department}" type="text" disabled />
                     </div>
                     <div class="form-group">
-                        <label class="color-main" for="program">
+                        <label class="color-main">
                             Program:
                         </label>
-                        <input class="form-control" id="program" value="${program}" type="text" disabled />
+                        <input class="form-control" value="${program}" type="text" disabled />
                     </div>
                 </div>
             </div>

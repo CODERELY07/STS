@@ -1,3 +1,5 @@
+// Handles sidebar toggle and theme switching with localStorage persistence.
+
 const sidebarToggle = document.querySelector("#sidebar-toggle");
 sidebarToggle.addEventListener("click",function(){
     document.querySelector("#sidebar").classList.toggle("collapsed");

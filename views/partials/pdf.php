@@ -1,8 +1,12 @@
 <?php
+
+//this code convert the input data's to pdf so user can view and download her/his data
 require_once(__DIR__ . '/../../paths.php');
 require_once APP_PATH . 'app.php';
 require_once VENDOR_PATH . 'autoload.php';
+
 use Dompdf\Dompdf;
+
 require_once CONFIG_PATH . 'config.php';
 session_start();
 
@@ -131,33 +135,34 @@ $html = "
                 </thead>
                 <tbody>";
 
-                foreach ($courses as $course) {
-                    $html .= "
-                                    <tr>
-                                        <td>" . htmlspecialchars($course['SubjectCode']) . "</td>
-                                        <td>" . htmlspecialchars($course['CourseName']) . "</td>
-                                        <td>" . htmlspecialchars($course['units']) . "</td>
-                                        <td>" . htmlspecialchars($course['TF']) . "</td>
-                                        <td>" . htmlspecialchars($course['Laboratory']) . "</td>
-                                        <td>N/A</td>
-                                    </tr>";
-                }
+$html .= ""; // to avoid empty line before foreach loop
+foreach ($courses as $course) {
+    $html .= "
+        <tr>
+            <td>" . htmlspecialchars($course['SubjectCode']) . "</td>
+            <td>" . htmlspecialchars($course['CourseName']) . "</td>
+            <td>" . htmlspecialchars($course['units']) . "</td>
+            <td>" . htmlspecialchars($course['TF']) . "</td>
+            <td>" . htmlspecialchars($course['Laboratory']) . "</td>
+            <td>N/A</td>
+        </tr>";
+}
 
-                $totalUnits = 0;
-                $totalTF = 0;
-                $totalLab = 0;
+$totalUnits = 0;
+$totalTF = 0;
+$totalLab = 0;
 
-                foreach ($courses as $course) {
-                    $totalUnits += (float)$course['units'];
-                    $totalTF += (float)$course['TF'];
-                    $totalLab += (float)$course['Laboratory'];
-                }
+foreach ($courses as $course) {
+    $totalUnits += (float)$course['units'];
+    $totalTF += (float)$course['TF'];
+    $totalLab += (float)$course['Laboratory'];
+}
 
-                $totalUnits = number_format($totalUnits, 1);
-                $totalTF = number_format($totalTF, 1);
-                $totalLab = number_format($totalLab, 1);
+$totalUnits = number_format($totalUnits, 1);
+$totalTF = number_format($totalTF, 1);
+$totalLab = number_format($totalLab, 1);
 
-                $html .= "
+$html .= "
                 </tbody>
                 <tfoot class='table-footer'>
                     <tr>

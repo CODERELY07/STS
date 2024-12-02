@@ -1,4 +1,6 @@
 <?php
+
+      //admindashboard to view student for students modification and etc. 
     session_start();   
     if (empty($_SESSION)) {
         header("Location: /adminLogin");

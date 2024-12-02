@@ -1,3 +1,4 @@
+/* admin dashboard style */
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 *,
@@ -177,29 +178,29 @@ a.sidebar-link {
     right:40%;
     border: none;
     background-color: var(--bs-body-color);
-    border-radius: 50%; /* Make the button circular */
+    border-radius: 50%;
     padding: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
 }
 
 .theme-toggle:hover {
-    transform: translateY(-50%) scale(1.1); /* Slight zoom effect on hover */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* More prominent shadow on hover */
+    transform: translateY(-50%) scale(1.1); 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Sun and Moon Icons Styling */
 html[data-bs-theme="light"] .theme-toggle .fa-sun,
 html[data-bs-theme="dark"] .theme-toggle .fa-moon {
     cursor: pointer;
-    padding: 15px; /* Increase padding for a better clickable area */
-    font-size: 1.5rem; /* Slightly larger font size for better visibility */
+    padding: 15px; 
+    font-size: 1.5rem; 
     display: block;
     color: #FFF;
-    transition: all 0.3s ease-in-out; /* Smooth transition for all properties */
-    border-radius: 50%; /* Round the icon's background */
-    background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: all 0.3s ease-in-out;
+    border-radius: 50%; 
+    background: rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
 }
 
 /* Hide the fa-sun icon in dark mode */
@@ -219,15 +220,15 @@ html[data-bs-theme="dark"] .theme-toggle .fa-moon {
     padding: 10px;
     display: block;
     font-size: 1.25rem;
-    color: #000; /* Black icon for light mode */
+    color: #000; 
 }
 
 /* When dark mode is active, the moon icon will be white */
 html[data-bs-theme="dark"] .theme-toggle .fa-moon {
-    color: #FFF; /* White moon icon in dark mode */
+    color: #FFF;
 }
 
 /* When light mode is active, the sun icon will be white */
 html[data-bs-theme="light"] .theme-toggle .fa-sun {
-    color: #FFF; /* White sun icon in light mode */
+    color: #FFF;
 }

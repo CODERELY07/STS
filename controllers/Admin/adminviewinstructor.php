@@ -1,4 +1,6 @@
 <?php
+
+    //admindashboard to view instructor for instuctors data modification and to add 
     session_start();   
     if (empty($_SESSION)) {
         header("Location: /adminLogin");

@@ -1,8 +1,10 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 session_start();
 $_SESSION['message'] = "";
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
     
     // Get and validate the user ID
@@ -25,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$user) {
-              $_SESSION['message'] = "No user found with that ID.";
+            $_SESSION['message'] = "No user found with that ID.";
             exit;
         }
 
@@ -62,16 +64,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
             $mail->isHTML(true);
             $mail->Subject = 'Complete Your Registration';
 
-            // Define the email bodies based on the status
+            // Safely escape data before inserting into the email body
+            $userFirstName = htmlspecialchars($user['firstname'], ENT_QUOTES, 'UTF-8');
+            $userLastName = htmlspecialchars($user['lastname'], ENT_QUOTES, 'UTF-8');
+
             $fail = "
                 <html>
                 <head>
                     <title>Your Exam Status</title>
                 </head>
                 <body>
-                    <p>Hello, ";
-            $fail .= $user['firstname'] . ' ' . $user['lastname'];
-            $fail .= "</p>
+                    <p>Hello, {$userFirstName} {$userLastName}</p>
                     <p>We're Sorry you failed the test.</p>
                 </body>
                 </html>
@@ -85,14 +88,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
             <body>
                 <p>Hello,</p>
                 <p>Thank you for registering with us! To complete your registration, please click the following link:</p>
-                <p><a href='" . $registration_link . "'>Complete Registration</a></p>
+                <p><a href='" . htmlspecialchars($registration_link, ENT_QUOTES, 'UTF-8') . "'>Complete Registration</a></p>
                 <p>If you did not request this registration, please ignore this email.</p>
                 <p>Best regards,<br>SMS</p>
             </body>
             </html>
             ";
 
-            // Check the status and assign the appropriate email body
             if ($status == 'pass') {
                 $mail->Body = $pass;
             } else {
@@ -118,6 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
     header('Location: /student');
     exit();
 }
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['InstructorID'])) {
 
     // Get and validate the user ID
@@ -177,22 +180,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['InstructorID'])) {
             $mail->isHTML(true);
             $mail->Subject = 'Complete Your Registration';
             
+            // Safely escape data before inserting into the email body
+            $userFirstName = htmlspecialchars($user['FirstName'], ENT_QUOTES, 'UTF-8');
+            $userLastName = htmlspecialchars($user['LastName'], ENT_QUOTES, 'UTF-8');
+
             $mail->Body = "
             <html>
             <head>
                 <title>Complete Your Registration</title>
             </head>
             <body>
-                <p>Hello, {$user['FirstName']} {$user['LastName']}</p>
-                <p>You are the new Instructor Please click the link for you account registration</p>
-                <p><a href='" . $registration_link . "'>Complete Registration</a></p>
+                <p>Hello, {$userFirstName} {$userLastName}</p>
+                <p>You are the new Instructor Please click the link for your account registration</p>
+                <p><a href='" . htmlspecialchars($registration_link, ENT_QUOTES, 'UTF-8') . "'>Complete Registration</a></p>
                 <p>If you did not request this registration, please ignore this email.</p>
                 <p>Best regards,<br>SMS</p>
             </body>
             </html>
             ";
 
-      
             // Send the email
             if ($mail->send()) {
                  $_SESSION['message'] =  'Registration email has been sent to ' . $email;

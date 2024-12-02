@@ -1,5 +1,6 @@
 <?php
 
+    // connection to mysql database using PDO
     $host = 'localhost';
     $db = 'student_management_system';
     $user = 'root';

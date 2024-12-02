@@ -1,3 +1,4 @@
+<!-- This is the main page view -->
 <?php
     require 'config/config.php';
     require 'partials/head.php';
@@ -17,7 +18,7 @@
             </div>
     <section class="hero-section d-flex justify-content-center align-items-center">
         <div class="container d-flex flex-column gap-5">
-            <h2>STUDENT MANAGEMENT SYSTEM</h2>
+            <h2 class="carousel-h2">STUDENT MANAGEMENT SYSTEM</h2>
             <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -26,19 +27,19 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <h1>EFFORTLESS LEARNING<br>SEAMLESS TEACHING</h1>
+                        <h1 class="carousel-text">EFFORTLESS LEARNING<br>SEAMLESS TEACHING</h1>
                     </div>
                     <div class="carousel-item">
-                        <h1>JOIN US ON THE JOURNEY<br>OF ACADEMIC SUCCESS</h1>
+                        <h1 class="carousel-text">JOIN US ON THE JOURNEY<br>OF ACADEMIC SUCCESS</h1>
                     </div>
                     <div class="carousel-item">
-                        <h1>STREAMLINING ADMINISTRATIVE<br>TASKS FOR EDUCATORS</h1>
+                        <h1 class="carousel-text">STREAMLINING ADMINISTRATIVE<br>TASKS FOR EDUCATORS</h1>
                     </div>
                 </div>
             </div>
             <div>
-                <a href="/register" class="btn btn-outline-light">REGISTER</a>
-                <a href="/login" class="btn btn-outline-light signin">SIGN IN</a>
+                <a href="/register" class="btn carousel-btn btn-outline-light">REGISTER</a>
+                <a href="/login" class="btn carousel-btn btn-outline-light signin">SIGN IN</a>
             </div>
         </div>
     </section>
