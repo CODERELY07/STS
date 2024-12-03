@@ -13,14 +13,23 @@ function createAccount($id, $token, $username, $password, $type) {
     $username = htmlspecialchars(trim($username), ENT_QUOTES, 'UTF-8');
     $password = htmlspecialchars(trim($password), ENT_QUOTES, 'UTF-8');
     // Check if the username or password is empty
-    if (empty($username) || empty($password)) {
-        echo "<p class='mt-4 text-center color-main text-uppercase'>Username and password are required.</p>";
+    if (empty($username)) {
+        $response['error']['username'] = "";
+        echo "<p class='mt-4 text-center color-main text-uppercase'>Username is required.</p>";
+        return;
+    } elseif (strlen($username) < 3 || strlen($username) > 100) {
+        echo "<p class='mt-4 text-center color-main text-uppercase'>Username must be between 3 and 100 characters.</p>";
         return;
     }
-    if (strlen($password) < 6) {
-       echo "<p class='mt-4 text-center color-main text-uppercase'>Password must be at least 6 characters</p>";
-       return;
+
+    if (empty($password)) {
+        echo "<p class='mt-4 text-center color-main text-uppercase'>Password is required.</p>";
+        return;
+    } elseif (strlen($password) < 6) {
+        echo "<p class='mt-4 text-center color-main text-uppercase'>Password must be at least 6 characters.</p>";
+        return;
     }
+
     // Check for duplicate username
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = :username");
     $stmt->bindParam(':username', $username);

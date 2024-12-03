@@ -164,6 +164,7 @@ function validateStep(step) {
         // }
         if (validateStep(currentStep)) {
             if (currentStep === 1) {
+           
                 const firstname = $('#firstname').val();
                 const lastname = $('#lastname').val();
                 const middlename = $('#middlename').val();
@@ -225,6 +226,10 @@ function validateStep(step) {
                         if (response.includes('Phone number must be exactly 11 digits')) {
                             $('#phonenumber').addClass('is-invalid');
                             $('#phonenumber').siblings('.invalid-feedback').text(response);
+                        }
+                        if(response.includes('The email address is already')){
+                            $('#email').addClass('is-invalid');
+                            $('#email').siblings('.invalid-feedback').text(response);
                         }
                     }
                 },

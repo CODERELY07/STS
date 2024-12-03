@@ -1,4 +1,6 @@
 <?php
+    
+    require_once '../config/config.php';
     // Check if the request method is POST
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Sanitize and escape inputs (to prevent XSS)
@@ -33,6 +35,21 @@
         echo 'Email address is not valid.';
         exit;
     }
+    $checkEmailQuery = "
+    SELECT 1 FROM instructors WHERE Email = :email
+    UNION ALL
+    SELECT 1 FROM students WHERE email = :email
+    ";
+
+    $stmt = $pdo->prepare($checkEmailQuery);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+        echo "The email address is already in use!";
+        exit;
+    }
+
     // Validate Phone Number (must be exactly 11 digits)
     if (!preg_match("/^\d{11}$/", $phone)) {
         echo 'Phone number must be exactly 11 digits.';
